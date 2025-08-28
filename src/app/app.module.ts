@@ -9,7 +9,6 @@ import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
-import { ProductsComponent } from './products/products.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ServicesComponent } from './services/services.component';
 
@@ -23,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GalleryComponent } from './gallery/gallery.component';
 import { ImageDialogComponent } from './gallery/image-dialog/image-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ProductsModule } from './products/products.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    ProductsComponent,
     ProjectsComponent,
     ServicesComponent,
     NavbarComponent,
@@ -42,10 +41,11 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    AppRoutingModule, // Make sure AppRoutingModule is imported before ProductsModule
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatDialogModule
+    // Remove ProductsModule from here since we're using lazy loading
   ],
   providers: [],
   bootstrap: [AppComponent]

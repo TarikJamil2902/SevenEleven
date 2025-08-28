@@ -23,29 +23,21 @@ interface Product {
 })
 export class ProductsComponent implements OnInit {
   // Default WhatsApp number for all products
-  defaultWhatsAppNumber = '+8801910930410';
+  private readonly defaultWhatsAppNumber = '+8801910930410';
   
   filteredProducts: Product[] = [];
   categories: ProductCategory[] = ['Mechanical', 'Technical', 'Electrical'];
   selectedCategory: string = 'all';
   selectedProduct: Product | null = null;
   showProductModal = false;
-
-  constructor() { }
-
-  formatPrice(price: number | string): string {
-    if (typeof price === 'number') {
-      return `$${price.toLocaleString()}`;
-    }
-    return price;
-  }
-
+  
+  // Products data
   products: Product[] = [
     {
       id: 1,
       name: 'Industrial Gearbox',
       model: 'IGB-750',
-      category: 'Mechanical' as ProductCategory,
+      category: 'Mechanical',
       imageUrl: 'assets/images/gearbox.jpg',
       description: 'High-performance industrial gearbox for heavy machinery applications',
       specifications: [
@@ -68,7 +60,7 @@ export class ProductsComponent implements OnInit {
       id: 2,
       name: 'Programmable Logic Controller',
       model: 'PLC-S7-1200',
-      category: 'Technical' as ProductCategory,
+      category: 'Technical',
       imageUrl: 'assets/images/controller.jpg',
       description: 'Advanced PLC for industrial automation and control systems',
       specifications: [
@@ -90,7 +82,7 @@ export class ProductsComponent implements OnInit {
       id: 3,
       name: '3-Phase Induction Motor',
       model: 'IM-22KW',
-      category: 'Electrical' as ProductCategory,
+      category: 'Electrical',
       imageUrl: 'assets/images/motor.jpg',
       description: 'High-efficiency three-phase induction motor for industrial use',
       specifications: [
@@ -111,8 +103,35 @@ export class ProductsComponent implements OnInit {
     }
   ];
 
+  // Default product to prevent null reference errors
+  private defaultProduct: Product = {
+    id: 0,
+    name: '',
+    model: '',
+    category: 'Mechanical',
+    imageUrl: 'assets/images/placeholder.svg',
+    description: '',
+    specifications: [],
+    features: [],
+    price: 0,
+    isNew: false,
+    whatsappNumber: this.defaultWhatsAppNumber
+  };
+
+  constructor() { }
+
   ngOnInit() {
-    this.filteredProducts = [...this.products];
+    console.log('ProductsComponent initialized');
+    this.filterProducts('all');
+    console.log('Total products:', this.products.length);
+    console.log('Filtered products:', this.filteredProducts);
+  }
+
+  formatPrice(price: number | string): string {
+    if (typeof price === 'number') {
+      return `$${price.toLocaleString()}`;
+    }
+    return price;
   }
 
   filterProducts(category: string | ProductCategory) {
@@ -122,42 +141,43 @@ export class ProductsComponent implements OnInit {
     } else {
       this.filteredProducts = this.products.filter(p => p.category === category);
     }
+    console.log(`Filtered to ${this.filteredProducts.length} products in category: ${category}`);
   }
 
   openProductModal(product: Product, event?: Event) {
     if (event) {
       event.stopPropagation();
     }
-    this.selectedProduct = product;
+    this.selectedProduct = product || this.defaultProduct;
     this.showProductModal = true;
     document.body.style.overflow = 'hidden';
   }
 
   closeProductModal() {
     this.showProductModal = false;
+    this.selectedProduct = null;
     document.body.style.overflow = '';
   }
 
   addToEnquiry(product: Product) {
-    // Implement your add to enquiry logic here
     console.log('Added to enquiry:', product);
-    // You can add a service call here to handle the enquiry
-    alert(`${product.name} has been added to your enquiry list.`);
+    // Implementation for adding to enquiry
   }
 
   contactViaWhatsApp(product: Product, event?: Event) {
     if (event) {
       event.stopPropagation();
     }
-    const message = `Hello, I'm interested in ${product.name} (${product.model}). Please provide more details.`;
-    const encodedMessage = encodeURIComponent(message);
-    // Use the product's WhatsApp number if available, otherwise use the default
-    const whatsappNumber = product.whatsappNumber || this.defaultWhatsAppNumber;
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+    
+    const phoneNumber = product.whatsappNumber || this.defaultWhatsAppNumber;
+    const message = `Hi, I'm interested in your ${product.name} (${product.model}). Could you please provide more information?`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank');
   }
 
   handleImageError(event: Event): void {
     const imgElement = event.target as HTMLImageElement;
-    imgElement.src = 'assets/images/placeholder.svg';
+    imgElement.src = this.defaultProduct.imageUrl;
   }
 }
