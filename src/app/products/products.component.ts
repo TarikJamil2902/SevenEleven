@@ -46,7 +46,7 @@ export class ProductsComponent implements OnInit {
       name: 'Industrial Gearbox',
       model: 'IGB-750',
       category: 'Mechanical' as ProductCategory,
-      imageUrl: 'assets/images/products/gearbox.jpg',
+      imageUrl: 'assets/images/gearbox.jpg',
       description: 'High-performance industrial gearbox for heavy machinery applications',
       specifications: [
         { key: 'Type', value: 'Helical' },
@@ -69,7 +69,7 @@ export class ProductsComponent implements OnInit {
       name: 'Programmable Logic Controller',
       model: 'PLC-S7-1200',
       category: 'Technical' as ProductCategory,
-      imageUrl: 'assets/images/products/plc.jpg',
+      imageUrl: 'assets/images/controller.jpg',
       description: 'Advanced PLC for industrial automation and control systems',
       specifications: [
         { key: 'Brand', value: 'Siemens' },
@@ -91,7 +91,7 @@ export class ProductsComponent implements OnInit {
       name: '3-Phase Induction Motor',
       model: 'IM-22KW',
       category: 'Electrical' as ProductCategory,
-      imageUrl: 'assets/images/products/motor.jpg',
+      imageUrl: 'assets/images/motor.jpg',
       description: 'High-efficiency three-phase induction motor for industrial use',
       specifications: [
         { key: 'Power', value: '22 KW' },
