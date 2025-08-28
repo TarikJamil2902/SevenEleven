@@ -1,0 +1,25 @@
+<!-- navbar.component.html -->
+<nav class="navbar">
+  <div class="container">
+    <div class="logo">
+      <a routerLink="/" class="logo-text">Seven<span>Eleven</span></a>
+    </div>
+
+    <div class="menu-toggle" (click)="toggleMenu()" [class.active]="menuActive" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <ul [class.active]="menuActive">
+      <li><a routerLink="/" [class.active]="isActive('/')" (click)="closeMenu()">Home</a></li>
+      <li><a routerLink="/about" [class.active]="isActive('/about')" (click)="closeMenu()">About</a></li>
+      <li><a routerLink="/services" [class.active]="isActive('/services')" (click)="closeMenu()">Services</a></li>
+      <li><a routerLink="/projects" [class.active]="isActive('/projects')" (click)="closeMenu()">Projects</a></li>
+      <li><a routerLink="/products" [class.active]="isActive('/products')" (click)="closeMenu()">Products</a></li>
+      <li><a routerLink="/contact" [class.active]="isActive('/contact')" (click)="closeMenu()">
+        <span class="contact-button">Contact Us</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
