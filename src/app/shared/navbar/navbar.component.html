@@ -1,26 +1,37 @@
-<!-- navbar.component.html -->
-<nav class="navbar">
+<nav class="navbar" [class.scrolled]="scrolled">
   <div class="container">
-    <div class="logo">
-      <a routerLink="/" class="logo-text">Seven<span>Eleven</span></a>
+    <!-- Left Section: Logo -->
+    <div class="nav-section logo-section">
+      <a routerLink="/" class="logo">
+        <img src="assets/images/sevenlogo.jpg" alt="Seven Eleven Logo">
+      </a>
     </div>
 
-    <div class="menu-toggle" (click)="toggleMenu()" [class.active]="menuActive" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
+    <!-- Middle Section: Navigation -->
+    <div class="nav-section nav-links">
+      <ul [class.active]="menuActive">
+        <li><a routerLink="/" [class.active]="isActive('/')" (click)="closeMenu()">Home</a></li>
+        <li><a routerLink="/about" [class.active]="isActive('/about')" (click)="closeMenu()">About</a></li>
+        <li><a routerLink="/services" [class.active]="isActive('/services')" (click)="closeMenu()">Services</a></li>
+        <li><a routerLink="/projects" [class.active]="isActive('/projects')" (click)="closeMenu()">Projects</a></li>
+        <li><a routerLink="/products" [class.active]="isActive('/products')" (click)="closeMenu()">Products</a></li>
+        <li><a routerLink="/gallery" [class.active]="isActive('/gallery')" (click)="closeMenu()">Gallery</a></li>
+      </ul>
     </div>
 
-    <ul [class.active]="menuActive">
-      <li><a routerLink="/" [class.active]="isActive('/')" (click)="closeMenu()">Home</a></li>
-      <li><a routerLink="/about" [class.active]="isActive('/about')" (click)="closeMenu()">About</a></li>
-      <li><a routerLink="/services" [class.active]="isActive('/services')" (click)="closeMenu()">Services</a></li>
-      <li><a routerLink="/projects" [class.active]="isActive('/projects')" (click)="closeMenu()">Projects</a></li>
-      <li><a routerLink="/products" [class.active]="isActive('/products')" (click)="closeMenu()">Products</a></li>
-      <li><a routerLink="/gallery" [class.active]="isActive('/gallery')" (click)="closeMenu()">Gallery</a></li>
-      <li><a routerLink="/contact" [class.active]="isActive('/contact')" (click)="closeMenu()">
-        <span class="contact-button">Contact Us</span>
-      </a></li>
-    </ul>
+    <!-- Right Section: Theme Toggle and Contact -->
+    <div class="nav-section nav-actions">
+      <button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="currentTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'">
+        <i [class]="currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun'"></i>
+      </button>
+      <a routerLink="/contact" class="contact-button" [class.active]="isActive('/contact')" (click)="closeMenu()">
+        Contact Us
+      </a>
+      <div class="menu-toggle" (click)="toggleMenu()" [class.active]="menuActive" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
   </div>
 </nav>

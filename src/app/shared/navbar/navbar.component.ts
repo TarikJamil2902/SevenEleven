@@ -2,6 +2,8 @@
 import { Component, HostListener, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
+type Theme = 'light' | 'dark';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -11,6 +13,7 @@ export class NavbarComponent implements OnInit {
   menuActive = false;
   scrolled = false;
   activeRoute = '';
+  currentTheme: Theme = 'light';
 
   constructor(
     private router: Router,
@@ -19,6 +22,13 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme') as Theme;
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    this.currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    this.applyTheme(this.currentTheme);
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.activeRoute = event.url.split('?')[0];
@@ -26,6 +36,22 @@ export class NavbarComponent implements OnInit {
         this.menuActive = false;
       }
     });
+  }
+
+  toggleTheme() {
+    this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+    this.applyTheme(this.currentTheme);
+    // Save preference
+    localStorage.setItem('theme', this.currentTheme);
+  }
+
+  private applyTheme(theme: Theme) {
+    const body = document.body;
+    if (theme === 'dark') {
+      body.classList.add('dark-theme');
+    } else {
+      body.classList.remove('dark-theme');
+    }
   }
 
   @HostListener('window:scroll', [])

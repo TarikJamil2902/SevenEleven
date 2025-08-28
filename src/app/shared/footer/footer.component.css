@@ -5,15 +5,26 @@
   font-family: 'Arial', sans-serif;
   font-size: 14px;
   line-height: 1.6;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-sizing: border-box;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 /* Container */
 .footer-container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 60px 20px 20px 20px;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 /* Top Section */
@@ -21,22 +32,32 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 30px;
   margin-bottom: 40px;
+  align-items: flex-start;
 }
 
 /* About Section */
 .footer-about {
   flex: 1 1 250px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .footer-logo {
-  width: 150px;
-  margin-bottom: 15px;
+  width: 120px; /* Reduced from 150px */
+  height: auto;
+  margin-bottom: 12px;
+  object-fit: contain;
 }
 
 .company-description {
   color: #555;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 /* Contact Section */
@@ -130,11 +151,30 @@
 .footer-bottom {
   background-color: #222; /* deep color */
   color: #fff;
-  padding: 15px 20px;
+  padding: 15px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-sizing: border-box;
+}
+
+.footer-bottom-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .footer-bottom p {

@@ -24,7 +24,7 @@
     <div class="row g-4">
       <div *ngFor="let project of filteredProjects" class="col-12 col-md-6 col-lg-4">
         <div class="project-card">
-          <div class="project-image">
+          <div class="project-image" (click)="openProjectModal(project, $event)">
             <img [src]="project.imageUrl" [alt]="project.title" class="img-fluid">
             <div class="project-category" [ngClass]="project.category">
               {{ project.category | titlecase }}
@@ -47,16 +47,10 @@
               </span>
             </div>
             
-            <!-- Testimonial Section -->
-            <div *ngIf="project.testimonial" class="testimonial mt-3">
-              <div class="testimonial-content">
-                <i class="fas fa-quote-left"></i>
-                <p>{{ project.testimonial.text }}</p>
-                <div class="testimonial-author">
-                  <strong>{{ project.testimonial.author }}</strong>
-                  <span>{{ project.testimonial.position }}, {{ project.testimonial.company }}</span>
-                </div>
-              </div>
+            <div class="project-actions mt-3">
+              <button class="btn btn-outline-primary btn-sm" (click)="openProjectModal(project, $event)">
+                View Details <i class="fas fa-arrow-right ms-1"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -68,6 +62,100 @@
       <i class="fas fa-folder-open fa-4x mb-3 text-muted"></i>
       <h4>No projects found</h4>
       <p class="text-muted">There are no projects in this category at the moment.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Project Details Modal -->
+<div class="modal-overlay" *ngIf="showProjectModal" (click)="closeProjectModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-modal" (click)="closeProjectModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <div *ngIf="selectedProject" class="project-details">
+      <div class="project-gallery" *ngIf="selectedProject.gallery && selectedProject.gallery.length > 0">
+        <button class="nav-arrow prev" (click)="prevImage(); $event.stopPropagation()">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="gallery-image">
+          <img [src]="selectedProject.gallery[activeImageIndex] || selectedProject.imageUrl" 
+               [alt]="selectedProject.title">
+        </div>
+        
+        <button class="nav-arrow next" (click)="nextImage(); $event.stopPropagation()">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        
+        <div class="gallery-dots" *ngIf="selectedProject.gallery.length > 1">
+          <span *ngFor="let img of selectedProject.gallery; let i = index"
+                [class.active]="i === activeImageIndex"
+                (click)="activeImageIndex = i; $event.stopPropagation()">
+          </span>
+        </div>
+      </div>
+      
+      <div class="project-info">
+        <div class="project-header">
+          <h2>{{ selectedProject.title }}</h2>
+          <div class="project-meta">
+            <span class="client">{{ selectedProject.client }}</span>
+            <span class="duration">{{ selectedProject.duration }}</span>
+            <span class="category" [ngClass]="selectedProject.category">
+              {{ selectedProject.category | titlecase }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="project-description">
+          <p>{{ selectedProject.detailedDescription || selectedProject.description }}</p>
+          
+          <div class="project-section" *ngIf="selectedProject.challenges">
+            <h4>Challenges</h4>
+            <p>{{ selectedProject.challenges }}</p>
+          </div>
+          
+          <div class="project-section" *ngIf="selectedProject.solution">
+            <h4>Our Solution</h4>
+            <p>{{ selectedProject.solution }}</p>
+          </div>
+          
+          <div class="project-section" *ngIf="selectedProject.results">
+            <h4>Results</h4>
+            <p>{{ selectedProject.results }}</p>
+          </div>
+          
+          <div class="project-section" *ngIf="selectedProject.features && selectedProject.features.length > 0">
+            <h4>Key Features</h4>
+            <ul class="features-list">
+              <li *ngFor="let feature of selectedProject.features">
+                <i class="fas fa-check-circle"></i> {{ feature }}
+              </li>
+            </ul>
+          </div>
+          
+          <div class="technologies">
+            <h4>Technologies Used</h4>
+            <div class="tech-tags">
+              <span *ngFor="let tech of selectedProject.technologies" class="tech-tag">
+                {{ tech }}
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial" *ngIf="selectedProject.testimonial">
+          <div class="testimonial-content">
+            <i class="fas fa-quote-left"></i>
+            <p>{{ selectedProject.testimonial.text }}</p>
+            <div class="testimonial-author">
+              <strong>{{ selectedProject.testimonial.author }}</strong>
+              <span>{{ selectedProject.testimonial.position }}, {{ selectedProject.testimonial.company }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

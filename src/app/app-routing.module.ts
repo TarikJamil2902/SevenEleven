@@ -16,22 +16,26 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: 'home', component: HomeComponent },
+      { path: '', component: HomeComponent },
       { path: 'about', component: AboutComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'projects', component: ProjectsComponent },
       { path: 'services', component: ServicesComponent },
       { path: 'gallery', component: GalleryComponent },
-      { path: '', redirectTo: 'home', pathMatch: 'full' } // default route
-    ]
-  },
-  {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
-  },
-  { path: '**', redirectTo: '' } // invalid URL -> home
-];
+      // default route
+        ]
+      },
+      
+        {
+          path: 'admin',
+          loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+        },
+        { path: '', redirectTo: 'admin/login', pathMatch: 'full' },
+        { path: '**', redirectTo: 'admin/login' }
+      ];
+       // invalid URL -> home
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

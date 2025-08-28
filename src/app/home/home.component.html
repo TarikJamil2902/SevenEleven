@@ -1,206 +1,264 @@
-<!-- Hero Section -->
-<section class="hero">
-  <div class="hero-content container">
-    <h1>Innovating Engineering & Technology Solutions</h1>
-    <p class="hero-subtitle">Delivering excellence in engineering services and technological innovations since 2015</p>
-    <div class="hero-buttons">
-      <a href="/contact" class="btn btn-primary">Get a Free Quote</a>
-      <a href="/services" class="btn btn-outline">Our Services</a>
-    </div>
-  </div>
-  <div class="hero-overlay"></div>
-  <video autoplay muted loop class="hero-video">
-    <source src="assets/videos/hero-bg.mp4" type="video/mp4">
-  </video>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seven Eleven Engineering & Tech Services</title>
+  <link rel="stylesheet" href="home.component.css">
+</head>
+<body>
 
-<!-- Introduction Section -->
-<section class="intro-section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Your Trusted Engineering Partner</h2>
-      <div class="underline"></div>
-      <p class="section-description">SevenEleven Engineering and Tech Services provides comprehensive engineering solutions and technology services to industries worldwide, helping businesses achieve operational excellence through innovation and technical expertise.</p>
-    </div>
-  </div>
-</section>
-
-<!-- Services Section -->
-<section class="services-section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Our Key Services</h2>
-      <div class="underline"></div>
-      <p class="section-description">Comprehensive solutions tailored to your business needs</p>
-    </div>
-    
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fas fa-cogs"></i>
-        </div>
-        <h3>Engineering Design</h3>
-        <p>Innovative and efficient design solutions for complex engineering challenges across multiple industries.</p>
-        <a href="/services/engineering-design" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-      </div>
-      
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fas fa-microchip"></i>
-        </div>
-        <h3>Technology Solutions</h3>
-        <p>Cutting-edge technology services including IoT, automation, and digital transformation.</p>
-        <a href="/services/technology-solutions" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-      </div>
-      
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fas fa-tools"></i>
-        </div>
-        <h3>Maintenance Services</h3>
-        <p>Comprehensive maintenance solutions to ensure optimal performance of your equipment and systems.</p>
-        <a href="/services/maintenance" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-      </div>
-      
-      <div class="service-card">
-        <div class="service-icon">
-          <i class="fas fa-project-diagram"></i>
-        </div>
-        <h3>Project Management</h3>
-        <p>End-to-end project management services ensuring timely delivery and quality results.</p>
-        <a href="/services/project-management" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Projects Showcase -->
-<section class="projects-section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Featured Projects</h2>
-      <div class="underline"></div>
-      <p class="section-description">Explore our successful projects and innovative solutions</p>
-    </div>
-    
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-image">
-          <img src="assets/images/projects/project1.jpg" alt="Industrial Automation">
-          <div class="project-overlay">
-            <h3>Industrial Automation</h3>
-            <p>Complete automation solution for manufacturing plant</p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="carousel">
+      <!-- Navigation Arrows -->
+      <a class="carousel-control prev" (click)="prevSlide()">
+        <span class="carousel-arrow">❮</span>
+      </a>
+      <a class="carousel-control next" (click)="nextSlide()">
+        <span class="carousel-arrow">❯</span>
+      </a>
+      <!-- Slide 1 -->
+      <div class="slides fade" [class.active]="slideIndex === 0">
+        <div class="slide-content">
+          <img src="assets/images/3.jpg" alt="Engineering Solutions">
+          <div class="hero-overlay">
+            <div class="container">
+              <h1>Innovative Engineering Solutions</h1>
+              <p>Delivering excellence in engineering and technology services since 2011</p>
+              <div class="hero-buttons">
+                <a routerLink="/contact" class="btn btn-primary">Get a Quote</a>
+                <a routerLink="/services" class="btn btn-outline">Our Services</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       
-      <div class="project-card">
-        <div class="project-image">
-          <img src="assets/images/projects/project2.jpg" alt="Renewable Energy">
-          <div class="project-overlay">
-            <h3>Renewable Energy</h3>
-            <p>Solar power plant design and implementation</p>
+      <!-- Slide 2 -->
+      <div class="slides fade" [class.active]="slideIndex === 1">
+        <div class="slide-content">
+          <img src="assets/images/2.jpg" alt="Technology Services">
+          <div class="hero-overlay">
+            <div class="container">
+              <h1>Advanced Technology Services</h1>
+              <p>Cutting-edge solutions for your business needs</p>
+              <div class="hero-buttons">
+                <a routerLink="/about" class="btn btn-primary">Learn More</a>
+                <a routerLink="/contact" class="btn btn-outline">Contact Us</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       
-      <div class="project-card">
-        <div class="project-image">
-          <img src="assets/images/projects/project3.jpg" alt="Smart Building">
-          <div class="project-overlay">
-            <h3>Smart Building</h3>
-            <p>IoT-based building automation system</p>
+      <!-- Slide 3 -->
+      <div class="slides fade" [class.active]="slideIndex === 2">
+        <div class="slide-content">
+          <img src="assets/images/4.jpg" alt="Professional Team">
+          <div class="hero-overlay">
+            <div class="container">
+              <h1>Expert Professional Team</h1>
+              <p>Dedicated professionals committed to your success</p>
+              <div class="hero-buttons">
+                <a routerLink="/team" class="btn btn-primary">Meet Our Team</a>
+                <a routerLink="/careers" class="btn btn-outline">Join Us</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     
-    <div class="text-center mt-5">
-      <a href="/projects" class="btn btn-outline">View All Projects</a>
+    <!-- Carousel Navigation Dots -->
+    <div class="carousel-nav">
+      <span *ngFor="let dot of [0, 1, 2]; let i = index" 
+            class="dot" 
+            [class.active]="slideIndex === i"
+            (click)="currentSlide(i + 1)">
+      </span>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Clients Section -->
-<section class="clients-section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Our Valued Clients</h2>
-      <div class="underline"></div>
-      <p class="section-description">Trusted by industry leaders worldwide</p>
-    </div>
-    
-    <div class="clients-grid">
-      <div class="client-logo">
-        <img src="assets/images/clients/client1.png" alt="Client 1">
-      </div>
-      <div class="client-logo">
-        <img src="assets/images/clients/client2.png" alt="Client 2">
-      </div>
-      <div class="client-logo">
-        <img src="assets/images/clients/client3.png" alt="Client 3">
-      </div>
-      <div class="client-logo">
-        <img src="assets/images/clients/client4.png" alt="Client 4">
-      </div>
-      <div class="client-logo">
-        <img src="assets/images/clients/client5.png" alt="Client 5">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA Section -->
-<section class="cta-section">
-  <div class="container">
-    <div class="cta-content">
-      <h2>Ready to Start Your Next Project?</h2>
-      <p>Contact us today to discuss how we can help you achieve your business goals with our expert engineering and technology solutions.</p>
-      <div class="cta-buttons">
-        <a href="/contact" class="btn btn-primary">Get In Touch</a>
-        <a href="tel:+880241010578" class="btn btn-outline">
-          <i class="fas fa-phone-alt"></i> +880 2 41010578
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Quick Contact -->
-<section class="quick-contact">
-  <div class="container">
-    <div class="quick-contact-grid">
-      <div class="contact-info">
-        <div class="contact-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <div>
-            <h4>Our Location</h4>
-            <p>123 Business Street, Dhaka, Bangladesh</p>
-          </div>
+  <!-- About Preview -->
+  <section class="about-preview">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content">
+          <h2>Before you proceed, learn about our company</h2>
+          <p>
+            Seven Eleven Engineering & Tech Services has been leading innovation in Bangladesh since 2015, providing top-notch solutions in engineering, construction, and technology. We focus on quality, reliability, and sustainability to deliver exceptional outcomes for our clients.
+          </p>
+          <a routerLink="/about" class="btn btn-primary">Learn More</a>
         </div>
-        <div class="contact-item">
-          <i class="fas fa-envelope"></i>
-          <div>
-            <h4>Email Us</h4>
-            <p>info@seveneleven.com</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <i class="fas fa-phone-alt"></i>
-          <div>
-            <h4>Call Us</h4>
-            <p>+880 2 41010578</p>
-          </div>
+        <div class="about-image">
+          <img src="assets/images/5.jpg" alt="Our Team at Work" class="img-fluid">
         </div>
       </div>
-      <div class="working-hours">
-        <h3>Working Hours</h3>
-        <ul>
-          <li>Monday - Friday: <span>9:00 AM - 6:00 PM</span></li>
-          <li>Saturday: <span>10:00 AM - 4:00 PM</span></li>
-          <li>Sunday: <span>Closed</span></li>
-        </ul>
+    </div>
+  </section>
+
+  <!-- Why Us Section -->
+  <section class="why-us">
+    <div class="container">
+      <h2>Why Choose Us?</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="assets/images/experience.avif" alt="Experience">
+          <h3>10+ Years Experience</h3>
+          <p>Decades of combined experience in engineering and technology services.</p>
+        </div>
+        <div class="card">
+          <img src="assets/images/quality.jpg" alt="Quality">
+          <h3>Quality Assurance</h3>
+          <p>We deliver world-class quality that ensures client satisfaction.</p>
+        </div>
+        <div class="card">
+          <img src="assets/images/innovation.webp" alt="Innovation">
+          <h3>Innovation</h3>
+          <p>We integrate modern technologies to provide future-ready solutions.</p>
+        </div>
+        <div class="card">
+          <img src="assets/images/support.avif" alt="Support">
+          <h3>Dedicated Support</h3>
+          <p>24/7 professional support to help clients succeed without hassle.</p>
+        </div>
+        <div class="card">
+          <img src="assets/images/innovation.webp" alt="Innovation">
+          <h3>Innovation</h3>
+          <p>We integrate modern technologies to provide future-ready solutions.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- Services Preview -->
+  <section class="services-preview">
+    <div class="container">
+      <h2>Our Core Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-cogs"></i>
+          </div>
+          <h3>Engineering Solutions</h3>
+          <p>From planning to execution, we deliver robust engineering projects with precision and innovation.</p>
+          <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <h3>Technology Integration</h3>
+          <p>Smart, scalable, and modern technology solutions tailored for your business success and growth.</p>
+          <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-hard-hat"></i>
+          </div>
+          <h3>Construction Management</h3>
+          <p>Efficient and reliable construction services across industries, ensuring quality and timely delivery.</p>
+          <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <a href="/services" class="btn btn-outline">Explore All Services</a>
+    </div>
+  </section>
+
+  <!-- Projects/Portfolio Preview -->
+  <section class="projects-preview">
+    <div class="container">
+      <h2>Our Recent Projects</h2>
+      <div class="project-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/images/project1.jpg" alt="Project 1">
+            <div class="project-overlay">
+              <div class="project-info">
+                <h3>Commercial Complex</h3>
+                <p>Modern architecture with sustainable design</p>
+                <span class="project-category">Architecture</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/images/project2.jpg" alt="Project 2">
+            <div class="project-overlay">
+              <div class="project-info">
+                <h3>Residential Tower</h3>
+                <p>Luxury living with panoramic views</p>
+                <span class="project-category">Residential</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/images/project3.avif" alt="Project 3">
+            <div class="project-overlay">
+              <div class="project-info">
+                <h3>Tech Park</h3>
+                <p>Innovative workspace solution</p>
+                <span class="project-category">Commercial</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="/projects" class="btn btn-primary">View All Projects</a>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-content">
+        <div class="cta-text">
+          <h2>Why Choose Seven Eleven?</h2>
+          <p>With years of experience and a team of dedicated professionals, we deliver excellence in every project. Our commitment to quality and customer satisfaction sets us apart in the industry.</p>
+          <a href="/contact" class="btn btn-outline">Contact Us</a>
+        </div>
+        <div class="cta-stats">
+          <div class="stat-item">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Team Members</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Simple Carousel
+    let slideIndex = 0;
+    showSlides();
+    function showSlides() {
+      let i;
+      let slides = document.getElementsByClassName("slides");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      slides[slideIndex-1].style.display = "block";  
+      setTimeout(showSlides, 2000); // Change every 2 seconds
+    }
+  </script>
+
+</body>
+</html>
