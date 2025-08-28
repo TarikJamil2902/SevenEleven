@@ -1,0 +1,31 @@
+/* Add padding to the top of the router outlet to prevent content from hiding behind the fixed navbar */
+:host {
+    display: block;
+    position: relative;
+    padding-top: 70px; /* Adjust this value based on your navbar height */
+  }
+  
+  /* Ensure the navbar stays on top of other content */
+  app-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  /* Main content wrapper */
+  .main-content {
+    min-height: calc(100vh - 70px); /* Adjust based on your navbar height */
+    padding: 20px;
+  }
+  /* If using Angular Material sidenav */
+mat-sidenav-container {
+    margin-top: 70px; /* Same as navbar height */
+    min-height: calc(100vh - 70px);
+  }
+  
+  /* If using Bootstrap container */
+  .container {
+    padding-top: 20px;
+  }

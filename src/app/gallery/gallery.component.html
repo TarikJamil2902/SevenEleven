@@ -1,0 +1,48 @@
+<div class="gallery-page py-5">
+  <div class="container">
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+      <h1 class="display-4 fw-bold mb-3">Our Gallery</h1>
+      <p class="lead text-muted">A glimpse into our work, projects, and team activities</p>
+      <div class="divider mx-auto my-4"></div>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="category-filter mb-5">
+      <div class="d-flex flex-wrap justify-content-center gap-2">
+        <button 
+          *ngFor="let category of categories"
+          (click)="filterImages(category.id)"
+          [class.active]="activeCategory === category.id"
+          class="btn btn-outline-primary rounded-pill px-4"
+        >
+          {{ category.name }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid">
+      <div *ngFor="let image of filteredImages" class="gallery-item" (click)="openImageDialog(image)">
+        <div class="gallery-image-container">
+          <img [src]="image.src" [alt]="image.title" class="gallery-image">
+          <div class="gallery-overlay">
+            <div class="overlay-content">
+              <h5 class="image-title">{{ image.title }}</h5>
+              <p class="image-category badge bg-primary">{{ image.category | titlecase }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredImages.length === 0" class="text-center py-5">
+      <div class="empty-state">
+        <i class="bi bi-images fs-1 text-muted mb-3"></i>
+        <h3>No images found</h3>
+        <p class="text-muted">We couldn't find any images in this category.</p>
+      </div>
+    </div>
+  </div>
+</div>

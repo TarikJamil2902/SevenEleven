@@ -1,1 +1,73 @@
-<p>projects works!</p>
+<div class="projects-container">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <h1>Our Projects</h1>
+      <p class="lead">Explore our portfolio of successful projects and case studies</p>
+      
+      <!-- Project Filter -->
+      <div class="project-filter mt-4">
+        <button 
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === category"
+          (click)="filterProjects(category)"
+          class="btn btn-outline-primary me-2 mb-2"
+        >
+          {{ toTitleCase(category) }}
+          <span class="badge bg-primary ms-2">
+            {{ getProjectCount(category) }}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="row g-4">
+      <div *ngFor="let project of filteredProjects" class="col-12 col-md-6 col-lg-4">
+        <div class="project-card">
+          <div class="project-image">
+            <img [src]="project.imageUrl" [alt]="project.title" class="img-fluid">
+            <div class="project-category" [ngClass]="project.category">
+              {{ project.category | titlecase }}
+            </div>
+          </div>
+          
+          <div class="project-content">
+            <div class="project-meta">
+              <span class="client">{{ project.client }}</span>
+              <span class="duration">{{ project.duration }}</span>
+            </div>
+            
+            <h3 class="project-title">{{ project.title }}</h3>
+            
+            <p class="project-description">{{ project.description }}</p>
+            
+            <div class="technologies">
+              <span *ngFor="let tech of project.technologies" class="tech-tag">
+                {{ tech }}
+              </span>
+            </div>
+            
+            <!-- Testimonial Section -->
+            <div *ngIf="project.testimonial" class="testimonial mt-3">
+              <div class="testimonial-content">
+                <i class="fas fa-quote-left"></i>
+                <p>{{ project.testimonial.text }}</p>
+                <div class="testimonial-author">
+                  <strong>{{ project.testimonial.author }}</strong>
+                  <span>{{ project.testimonial.position }}, {{ project.testimonial.company }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Empty State -->
+    <div *ngIf="filteredProjects.length === 0" class="text-center py-5">
+      <i class="fas fa-folder-open fa-4x mb-3 text-muted"></i>
+      <h4>No projects found</h4>
+      <p class="text-muted">There are no projects in this category at the moment.</p>
+    </div>
+  </div>
+</div>

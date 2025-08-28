@@ -1,1 +1,171 @@
-<p>contact works!</p>
+<div class="contact-page py-5">
+  <div class="container">
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+      <h1 class="display-4 fw-bold mb-3">Contact Us</h1>
+      <p class="lead text-muted">We'd love to hear from you. Get in touch with us today!</p>
+      <div class="divider mx-auto my-4"></div>
+    </div>
+
+    <div class="row g-5">
+      <!-- Contact Form -->
+      <div class="col-lg-7">
+        <div class="contact-form-card p-4 p-md-5">
+          <h2 class="h3 mb-4">Send us a Message</h2>
+          
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="name" 
+                formControlName="name"
+                [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+                placeholder="Your name">
+              <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                <div *ngIf="f['name'].errors['required']">Name is required</div>
+                <div *ngIf="f['name'].errors['minlength']">Name must be at least 3 characters</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="email" 
+                  formControlName="email"
+                  [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                  placeholder="your.email@example.com">
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                  <div *ngIf="f['email'].errors['required']">Email is required</div>
+                  <div *ngIf="f['email'].errors['email']">Please enter a valid email</div>
+                </div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                <input 
+                  type="tel" 
+                  class="form-control" 
+                  id="phone" 
+                  formControlName="phone"
+                  [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }"
+                  placeholder="+880 1234 567890">
+                <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+                  <div *ngIf="f['phone'].errors['required']">Phone number is required</div>
+                  <div *ngIf="f['phone'].errors['pattern']">Please enter a valid phone number</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="message" class="form-label">Your Message <span class="text-danger">*</span></label>
+              <textarea 
+                class="form-control" 
+                id="message" 
+                rows="5" 
+                formControlName="message"
+                [ngClass]="{ 'is-invalid': submitted && f['message'].errors }"
+                placeholder="How can we help you?"></textarea>
+              <div *ngIf="submitted && f['message'].errors" class="invalid-feedback">
+                <div *ngIf="f['message'].errors['required']">Message is required</div>
+                <div *ngIf="f['message'].errors['minlength']">Message must be at least 10 characters</div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg" [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              {{ loading ? 'Sending...' : 'Send Message' }}
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="col-lg-5">
+        <div class="contact-info-card p-4 p-md-5 h-100">
+          <h2 class="h3 mb-4">Get in Touch</h2>
+          
+          <div class="contact-info-item mb-4">
+            <div class="d-flex align-items-start">
+              <div class="contact-icon me-3">
+                <i class="bi bi-geo-alt-fill"></i>
+              </div>
+              <div>
+                <h3 class="h5 mb-2">Our Office</h3>
+                <p class="mb-0">{{ contactInfo.address }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info-item mb-4">
+            <div class="d-flex align-items-start">
+              <div class="contact-icon me-3">
+                <i class="bi bi-telephone-fill"></i>
+              </div>
+              <div>
+                <h3 class="h5 mb-2">Phone</h3>
+                <p class="mb-0">
+                  <a href="tel:{{ contactInfo.phone }}" class="text-decoration-none">{{ contactInfo.phone }}</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info-item mb-4">
+            <div class="d-flex align-items-start">
+              <div class="contact-icon me-3">
+                <i class="bi bi-envelope-fill"></i>
+              </div>
+              <div>
+                <h3 class="h5 mb-2">Email</h3>
+                <p class="mb-0">
+                  <a href="mailto:{{ contactInfo.email }}" class="text-decoration-none">{{ contactInfo.email }}</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info-item mb-4">
+            <h3 class="h5 mb-3">Working Hours</h3>
+            <ul class="list-unstyled">
+              <li *ngFor="let hours of contactInfo.workingHours" class="d-flex justify-content-between mb-2">
+                <span class="text-muted">{{ hours.day }}:</span>
+                <span class="fw-medium">{{ hours.hours }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="contact-info-item">
+            <h3 class="h5 mb-3">Follow Us</h3>
+            <div class="social-links">
+              <a *ngFor="let social of contactInfo.socialMedia" 
+                 [href]="social.url" 
+                 class="social-link"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 [title]="social.name">
+                <i [class]="social.icon + ' me-2'"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="map-section mt-5">
+      <div class="ratio ratio-21x9 rounded-3 overflow-hidden">
+        <iframe 
+          [src]="mapUrl | safe: 'resourceUrl'" 
+          allowfullscreen 
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>

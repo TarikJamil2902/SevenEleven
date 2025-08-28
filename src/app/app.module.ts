@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -12,9 +13,16 @@ import { ProductsComponent } from './products/products.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ServicesComponent } from './services/services.component';
 
+// Pipes
+import { SafePipe } from './shared/pipes/safe.pipe';
+
 // Navbar & Footer
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GalleryComponent } from './gallery/gallery.component';
+import { ImageDialogComponent } from './gallery/image-dialog/image-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -27,11 +35,17 @@ import { FooterComponent } from './shared/footer/footer.component';
     ProjectsComponent,
     ServicesComponent,
     NavbarComponent,
-    FooterComponent
+    SafePipe,
+    FooterComponent,
+    GalleryComponent,
+    ImageDialogComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

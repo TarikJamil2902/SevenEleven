@@ -1,0 +1,136 @@
+.contact-page {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding: 3rem 0;
+  }
+  
+  .divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+    border-radius: 2px;
+    margin: 0 auto;
+  }
+  
+  .contact-form-card,
+  .contact-info-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+  
+  .contact-form-card {
+    border-top: 4px solid #0d6efd;
+  }
+  
+  .contact-info-card {
+    border-top: 4px solid #20c997;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #f0f7ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .contact-icon i {
+    font-size: 1.25rem;
+    color: #0d6efd;
+  }
+  
+  .contact-info-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .contact-info-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    color: #0d6efd;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .social-link:hover {
+    background-color: #0d6efd;
+    color: white;
+    transform: translateY(-3px);
+  }
+  
+  .map-section {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Form Styles */
+  .form-control {
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+  }
+  
+  .btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 991.98px) {
+    .contact-form-card,
+    .contact-info-card {
+      margin-bottom: 2rem;
+    }
+  }
+  
+  @media (max-width: 767.98px) {
+    .contact-page {
+      padding: 2rem 0;
+    }
+    
+    .contact-form-card,
+    .contact-info-card {
+      padding: 1.5rem !important;
+    }
+  }
