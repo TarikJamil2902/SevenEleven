@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 type ProductCategory = 'Mechanical' | 'Technical' | 'Electrical';
 
@@ -22,7 +23,6 @@ interface Product {
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  // Default WhatsApp number for all products
   private readonly defaultWhatsAppNumber = '+8801910930410';
   
   filteredProducts: Product[] = [];
@@ -30,8 +30,8 @@ export class ProductsComponent implements OnInit {
   selectedCategory: string = 'all';
   selectedProduct: Product | null = null;
   showProductModal = false;
-  
-  // Products data
+
+  // Products array with relative paths
   products: Product[] = [
     {
       id: 1,
@@ -103,14 +103,13 @@ export class ProductsComponent implements OnInit {
     }
   ];
 
-  // Default product to prevent null reference errors
   private defaultProduct: Product = {
     id: 0,
-    name: '',
-    model: '',
+    name: 'No Product',
+    model: '-',
     category: 'Mechanical',
     imageUrl: 'assets/images/placeholder.svg',
-    description: '',
+    description: 'No description available.',
     specifications: [],
     features: [],
     price: 0,
@@ -121,10 +120,7 @@ export class ProductsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('ProductsComponent initialized');
     this.filterProducts('all');
-    console.log('Total products:', this.products.length);
-    console.log('Filtered products:', this.filteredProducts);
   }
 
   formatPrice(price: number | string): string {
@@ -141,13 +137,10 @@ export class ProductsComponent implements OnInit {
     } else {
       this.filteredProducts = this.products.filter(p => p.category === category);
     }
-    console.log(`Filtered to ${this.filteredProducts.length} products in category: ${category}`);
   }
 
   openProductModal(product: Product, event?: Event) {
-    if (event) {
-      event.stopPropagation();
-    }
+    if (event) event.stopPropagation();
     this.selectedProduct = product || this.defaultProduct;
     this.showProductModal = true;
     document.body.style.overflow = 'hidden';
@@ -160,20 +153,14 @@ export class ProductsComponent implements OnInit {
   }
 
   addToEnquiry(product: Product) {
-    console.log('Added to enquiry:', product);
-    // Implementation for adding to enquiry
+    alert(`${product.name} has been added to your enquiry list.`);
   }
 
   contactViaWhatsApp(product: Product, event?: Event) {
-    if (event) {
-      event.stopPropagation();
-    }
-    
+    if (event) event.stopPropagation();
     const phoneNumber = product.whatsappNumber || this.defaultWhatsAppNumber;
-    const message = `Hi, I'm interested in your ${product.name} (${product.model}). Could you please provide more information?`;
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    
-    window.open(whatsappUrl, '_blank');
+    const message = `Hi, I'm interested in your ${product.name} (${product.model}). Please provide more info.`;
+    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
   }
 
   handleImageError(event: Event): void {
