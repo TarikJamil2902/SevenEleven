@@ -1,3 +1,9 @@
+body {
+  margin:0;
+  font-family: 'Arial', sans-serif;
+  background:#f5f7fa;
+}
+
 .about-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -10,10 +16,22 @@
 
 .content-box {
   background: #fff;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   margin-bottom: 2rem;
+  transition: transform 0.3s;
+}
+
+.content-box:hover {
+  transform: translateY(-5px);
+}
+
+.banner-box {
+  background-size: cover;
+  background-position: center;
+  color:white;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
 }
 
 h1 {
@@ -30,15 +48,145 @@ h2 {
 
 .mv-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
 
 .mv-item {
-  padding: 1.5rem;
-  background: #f8f9fa;
-  border-radius: 6px;
+  padding: 2rem;
+  background: #3498db;
+  color: white;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.mv-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+/* Mission, Vision, Values (same style as Why Choose Us) */
+.mv-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.mv-item {
+  padding: 2rem;
+  background: #f0f8ff;           /* Light card background */
+  color: #2c3e50;                /* Default text color */
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s, background 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.mv-item .icon {
+  font-size: 2rem;
+  color: #3498db;                /* Default icon color */
+  margin-bottom: 1rem;
+  display: inline-block;
+  transition: color 0.3s;
+}
+
+.mv-item h3 {
+  margin-bottom: 1rem;
+  transition: color 0.3s;
+}
+
+.mv-item ul li {
+  list-style: none;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s;
+}
+
+/* Hover effect: background + text + icon color */
+.mv-item:hover {
+  background: #3498db;           /* Card bg color on hover */
+  color: white;                  /* Text color on hover */
+  transform: translateY(-5px);   /* Slight lift */
+}
+
+.mv-item:hover .icon {
+  color: white;                  /* Icon color on hover */
+}
+
+.mv-item:hover h3,
+.mv-item:hover ul li {
+  color: white;                  /* Text inside card hover */
+}
+/* MV Cards */
+.mv-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.mv-item {
+  background: #fff;
+  padding: 30px 20px;
+  border-radius: 12px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mv-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.mv-item .icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+/* Modal */
+.mv-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.mv-modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+}
+
+.mv-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.mv-close:hover {
+  color: #FFCE00;
+}
+
+.mv-item .icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: inline-block;
 }
 
 .features {
@@ -51,13 +199,21 @@ h2 {
 .feature {
   text-align: center;
   padding: 1.5rem;
+  border-radius: 12px;
+  background: #f0f8ff;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.feature:hover {
+  background: #3498db;
+  color: white;
+  transform: translateY(-5px);
 }
 
 .feature .icon {
   font-size: 2rem;
   color: #3498db;
   margin-bottom: 1rem;
-  display: inline-block;
 }
 
 .team-grid {
@@ -75,9 +231,15 @@ h2 {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background: #e0e0e0;
+  background-size: cover;
+  background-position: center;
   margin: 0 auto 1rem;
-  overflow: hidden;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.team-member:hover .member-photo {
+  transform: scale(1.05);
+  opacity: 0.9;
 }
 
 .achievements {
@@ -88,10 +250,17 @@ h2 {
 }
 
 .achievement {
-  background: #f8f9fa;
+  background: #f0f8ff;
   padding: 1.5rem;
-  border-radius: 6px;
+  border-radius: 12px;
   text-align: center;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.achievement:hover {
+  background: #3498db;
+  color: white;
+  transform: translateY(-5px);
 }
 
 .achievement h3 {
@@ -105,5 +274,123 @@ h2 {
   .team-grid,
   .achievements {
     grid-template-columns: 1fr;
+  }
+}
+/* Features Hover Fix */
+.feature {
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #f0f8ff;
+  transition: transform 0.3s, background 0.3s, color 0.3s;
+}
+
+.feature .icon {
+  font-size: 2rem;
+  color: #3498db;
+  margin-bottom: 1rem;
+  transition: color 0.3s;
+}
+
+/* Hover state: background + text + icon color */
+.feature:hover {
+  background: #3498db;
+  color: white;                 /* text color */
+}
+
+.feature:hover .icon {
+  color: white;                 /* icon color */
+}
+
+/* Achievements Hover Fix */
+.achievement {
+  background: #f0f8ff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s, background 0.3s, color 0.3s;
+}
+
+.achievement h3,
+.achievement p {
+  transition: color 0.3s;
+}
+
+.achievement:hover {
+  background: #3498db;
+  color: white;                /* text color */
+}
+/* Company Overview */
+.overview-box {
+  display: block;
+  background: #f8faff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.overview-box:hover {
+  transform: translateY(-5px);
+}
+
+.overview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.overview-image {
+  flex: 1 1 300px;
+  min-width: 280px;
+}
+
+.overview-image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.overview-text {
+  flex: 2 1 400px;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.overview-text h2 {
+  color: #3498db;
+  margin-bottom: 1rem;
+}
+
+.overview-text p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.overview-text ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.overview-text ul li {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.overview-text ul li i {
+  color: #3498db;
+  margin-right: 0.8rem;
+}
+
+.highlight {
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .overview-grid {
+    flex-direction: column;
   }
 }

@@ -1,103 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About SevenEleven</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="about.component.css">
+</head>
+<body>
+
 <div class="about-container">
-    <!-- Company Overview -->
-    <section class="section">
-      <h1>About SevenEleven</h1>
-      <div class="content-box">
+
+  <!-- Banner / Overview -->
+  <section class="section">
+  <div class="content-box overview-box">
+    <div class="overview-grid">
+      <!-- Left: Image -->
+      <div class="overview-image">
+        <img src="./assets/images/building.jpg" alt="Company Building">
+      </div>
+      <!-- Right: Text -->
+      <div class="overview-text">
         <h2>Company Overview</h2>
-        <p>Established in [Year], SevenEleven has been a leading provider of [your services] in [your location/industry].</p>
-        <p>We specialize in:</p>
+        <p>Founded in <strong>2015</strong>, <span class="highlight">SevenEleven Engineering & Tech Services</span> is a premier provider of innovative technology and engineering solutions in Bangladesh.</p>
+        <p>We excel in delivering:</p>
         <ul>
-          <li>Service 1</li>
-          <li>Service 2</li>
-          <li>Service 3</li>
+          <li><i class="fas fa-laptop-code"></i> Software Development</li>
+          <li><i class="fas fa-tools"></i> Hardware Installation & Maintenance</li>
+          <li><i class="fas fa-lightbulb"></i> Technology Consulting & Project Management</li>
+        </ul>
+        <p>Our mission is to empower businesses with state-of-the-art tech solutions while maintaining <strong>quality, integrity, and innovation</strong> in every project.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Mission, Vision, Values -->
+<section class="section">
+  <div class="content-box">
+    <div class="mv-container">
+      
+      <!-- Mission Card -->
+      <div class="mv-item" onclick="showDetails('mission')">
+        <div class="icon">🎯</div>
+        <h3>Our Mission</h3>
+        <p>Deliver high-quality engineering and IT solutions...</p>
+      </div>
+
+      <!-- Vision Card -->
+      <div class="mv-item" onclick="showDetails('vision')">
+        <div class="icon">👁️</div>
+        <h3>Our Vision</h3>
+        <p>To become the most trusted name in technology...</p>
+      </div>
+
+      <!-- Values Card -->
+      <div class="mv-item" onclick="showDetails('values')">
+        <div class="icon">💡</div>
+        <h3>Our Values</h3>
+        <ul>
+          <li>Integrity in all dealings</li>
+          <li>Customer-first approach</li>
+          <li>Innovation and excellence</li>
+          <li>Teamwork & collaboration</li>
         </ul>
       </div>
-    </section>
-  
-    <!-- Mission, Vision, Values -->
-    <section class="section">
-      <div class="content-box">
-        <div class="mv-container">
-          <div class="mv-item">
-            <h3>Our Mission</h3>
-            <p>To deliver exceptional [products/services] that [your mission statement].</p>
-          </div>
-          <div class="mv-item">
-            <h3>Our Vision</h3>
-            <p>To be the most trusted name in [your industry] by [your vision statement].</p>
-          </div>
-          <div class="mv-item">
-            <h3>Our Values</h3>
-            <ul>
-              <li>Integrity in all our dealings</li>
-              <li>Customer-first approach</li>
-              <li>Innovation and excellence</li>
-              <li>Teamwork and collaboration</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  
-    <!-- Why Choose Us -->
-    <section class="section">
-      <div class="content-box">
-        <h2>Why Choose Us?</h2>
-        <div class="features">
-          <div class="feature">
-            <i class="icon">✓</i>
-            <h4>Expert Team</h4>
-            <p>Our professionals bring years of experience and expertise.</p>
-          </div>
-          <div class="feature">
-            <i class="icon">✓</i>
-            <h4>Quality Assurance</h4>
-            <p>We never compromise on quality in any of our services.</p>
-          </div>
-          <div class="feature">
-            <i class="icon">✓</i>
-            <h4>Customer Support</h4>
-            <p>24/7 dedicated support for all your needs.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  
-    <!-- Team Members -->
-    <section class="section">
-      <div class="content-box">
-        <h2>Our Leadership Team</h2>
-        <div class="team-grid">
-          <div class="team-member">
-            <div class="member-photo"></div>
-            <h4>John Doe</h4>
-            <p>CEO & Founder</p>
-          </div>
-          <div class="team-member">
-            <div class="member-photo"></div>
-            <h4>Jane Smith</h4>
-            <p>CTO</p>
-          </div>
-          <!-- Add more team members as needed -->
-        </div>
-      </div>
-    </section>
-  
-    <!-- Achievements -->
-    <section class="section">
-      <div class="content-box">
-        <h2>Our Achievements</h2>
-        <div class="achievements">
-          <div class="achievement">
-            <h3>2023</h3>
-            <p>Best Company Award - [Award Name]</p>
-          </div>
-          <div class="achievement">
-            <h3>2022</h3>
-            <p>ISO 9001:2022 Certified</p>
-          </div>
-          <!-- Add more achievements as needed -->
-        </div>
-      </div>
-    </section>
+
+    </div>
   </div>
+</section>
+
+<!-- Modal for Details -->
+<div id="mv-modal" class="mv-modal">
+  <div class="mv-modal-content">
+    <span class="mv-close" onclick="closeModal()">&times;</span>
+    <h3 id="modal-title"></h3>
+    <p id="modal-text"></p>
+    <ul id="modal-list"></ul>
+  </div>
+</div>
+
+  <!-- Why Choose Us -->
+  <section class="section">
+    <div class="content-box">
+      <h2>Why Choose Us?</h2>
+      <div class="features">
+        <div class="feature">
+          <i class="icon fas fa-users"></i>
+          <h4>Expert Team</h4>
+          <p>Our professionals bring years of experience in software, hardware, and engineering projects.</p>
+        </div>
+        <div class="feature">
+          <i class="icon fas fa-certificate"></i>
+          <h4>Quality Assurance</h4>
+          <p>We maintain the highest standards and certifications in all our services.</p>
+        </div>
+        <div class="feature">
+          <i class="icon fas fa-headset"></i>
+          <h4>24/7 Support</h4>
+          <p>Our dedicated support team ensures all your queries and issues are resolved promptly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership Team -->
+  <section class="section">
+    <div class="content-box">
+      <h2>Our Leadership Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+            <!-- <img src="./assets/images/building.jpg" alt="Company Building"> -->
+          <div class="member-photo" style="background-image:url('./assets/images/naim.jpg');"></div>
+          <h4>MD. NAYEEM ISLAM</h4>
+          <p>CEO & Founder</p>
+        </div>
+        <div class="team-member">
+            <!-- <img src="./assets/images/building.jpg" alt="Company Building"> -->
+          <div class="member-photo" style="background-image:url('./assets/images/naim.jpg');"></div>
+          <h4>MD. NAYEEM ISLAM</h4>
+          <p>CEO & Founder</p>
+        </div>
+        <div class="team-member">
+            <!-- <img src="./assets/images/building.jpg" alt="Company Building"> -->
+          <div class="member-photo" style="background-image:url('./assets/images/naim.jpg');"></div>
+          <h4>MD. NAYEEM ISLAM</h4>
+          <p>CEO & Founder</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section class="section">
+    <div class="content-box">
+      <h2>Our Achievements</h2>
+      <div class="achievements">
+        <div class="achievement">
+          <h3>2023 🏆</h3>
+          <p>Best IT Solutions Provider - National Tech Awards</p>
+        </div>
+        <div class="achievement">
+          <h3>2022 🏅</h3>
+          <p>ISO 9001:2022 Certified</p>
+        </div>
+        <div class="achievement">
+          <h3>2021 🏆</h3>
+          <p>Excellence in Engineering Services Award</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<script>
+    function showDetails(type) {
+  const modal = document.getElementById('mv-modal');
+  const title = document.getElementById('modal-title');
+  const text = document.getElementById('modal-text');
+  const list = document.getElementById('modal-list');
+
+  list.style.display = 'none'; // hide list by default
+  list.innerHTML = '';
+  
+  if(type === 'mission') {
+    title.textContent = 'Our Mission';
+    text.textContent = 'Deliver high-quality engineering and IT solutions that empower businesses to succeed in a digital world.';
+  } else if(type === 'vision') {
+    title.textContent = 'Our Vision';
+    text.textContent = 'To become the most trusted name in technology and engineering solutions in South Asia by 2030.';
+  } else if(type === 'values') {
+    title.textContent = 'Our Values';
+    text.textContent = 'Our core principles:';
+    list.style.display = 'block';
+    const values = ['Integrity in all dealings', 'Customer-first approach', 'Innovation and excellence', 'Teamwork & collaboration'];
+    values.forEach(v => {
+      const li = document.createElement('li');
+      li.textContent = v;
+      list.appendChild(li);
+    });
+  }
+
+  modal.classList.add('show');
+
+}
+
+function closeModal() {
+  document.getElementById('mv-modal').classList.remove('show');
+}
+
+// Close modal when clicking outside content
+window.onclick = function(event) {
+  const modal = document.getElementById('mv-modal');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+}
+
+</script>
+</body>
+</html>
