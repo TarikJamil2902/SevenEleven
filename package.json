@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "ng build --base-href '/SevenEleven/' && npx angular-cli-ghpages --dir=dist/SevenEleven",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
