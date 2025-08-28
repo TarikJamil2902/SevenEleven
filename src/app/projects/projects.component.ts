@@ -196,7 +196,7 @@ export class ProjectsComponent implements OnInit {
     this.selectedProject = project;
     this.activeImageIndex = 0;
     this.showProjectModal = true;
-    document.body.classList.add('modal-open');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
   }
 
   constructor() {}
@@ -230,8 +230,7 @@ export class ProjectsComponent implements OnInit {
   // Close project modal
   closeProjectModal() {
     this.showProjectModal = false;
-    this.selectedProject = null;
-    document.body.classList.remove('modal-open');
+    document.body.style.overflow = ''; // Re-enable scrolling
   }
 
   // Navigate to next image in gallery
