@@ -9,6 +9,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ServicesComponent } from './services/services.component';
 import { LayoutComponent } from './layout/layout.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { LoginComponent } from './admin/login/login.component'; // ✅ Login import root e
 
 const routes: Routes = [
   {
@@ -25,17 +26,25 @@ const routes: Routes = [
       { path: 'projects', component: ProjectsComponent },
       { path: 'services', component: ServicesComponent },
       { path: 'gallery', component: GalleryComponent },
-      {
-        path: 'admin',
-        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
-      },
-      // Default route
-      { path: '**', redirectTo: '' }
     ]
-  }
-];
-       // invalid URL -> home
+  },
 
+  // Login route at root level
+  { 
+    path: 'login', 
+    component: LoginComponent,
+    data: { title: 'Admin Login' }
+  },
+
+  // Lazy load admin routes
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+
+  // ✅ Wildcard -> home
+  { path: '**', redirectTo: '' }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],

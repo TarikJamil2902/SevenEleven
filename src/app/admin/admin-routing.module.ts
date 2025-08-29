@@ -2,28 +2,25 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent,
-    data: { title: 'Admin Login' }
+    path: '',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Admin Dashboard' }
   },
   {
     path: 'dashboard',
     component: DashboardComponent,
-   
+    canActivate: [AuthGuard],
     data: { title: 'Admin Dashboard' }
   },
   {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
-  {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: ''
   }
 ];
 
@@ -31,4 +28,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}
