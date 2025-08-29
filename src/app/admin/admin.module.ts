@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../shared/material.module';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -16,7 +17,8 @@ import { AuthGuard } from './auth.guard';
     CommonModule,
     AdminRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   providers: [
     AuthGuard

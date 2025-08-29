@@ -2,27 +2,37 @@
 :host {
     display: block;
     position: relative;
-    padding-top: 70px; /* Adjust this value based on your navbar height */
+    padding-top: 0px; 
   }
   
-  /* Ensure the navbar stays on top of other content */
-  app-navbar {
+  /* Styles for the Material toolbar */
+  mat-toolbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
-  
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
   /* Main content wrapper */
   .main-content {
-    min-height: calc(100vh - 70px); /* Adjust based on your navbar height */
+    margin-top: 64px; /* Height of the Material toolbar */
     padding: 20px;
+    min-height: calc(100vh - 64px);
   }
   /* If using Angular Material sidenav */
-mat-sidenav-container {
-    margin-top: 70px; /* Same as navbar height */
-    min-height: calc(100vh - 70px);
+  mat-sidenav-container {
+    margin-top: 64px; /* Same as Material toolbar height */
+    min-height: calc(100vh - 64px);
   }
   
   /* If using Bootstrap container */
