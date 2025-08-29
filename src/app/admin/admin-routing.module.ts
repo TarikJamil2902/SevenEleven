@@ -3,24 +3,54 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
-
+import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    component: LayoutComponent,
     canActivate: [AuthGuard],
-    data: { title: 'Admin Dashboard' }
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        data: { title: 'Dashboard' }
+      },
+      // Add other admin routes here as children
+      // {
+      //   path: 'users',
+      //   component: UsersComponent,
+      //   data: { title: 'User Management' }
+      // },
+      // {
+      //   path: 'products',
+      //   component: ProductsComponent,
+      //   data: { title: 'Products' }
+      // },
+      // {
+      //   path: 'orders',
+      //   component: OrdersComponent,
+      //   data: { title: 'Orders' }
+      // },
+      // {
+      //   path: 'settings',
+      //   component: SettingsComponent,
+      //   data: { title: 'Settings' }
+      // }
+    ]
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard],
-    data: { title: 'Admin Dashboard' }
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'dashboard'
   }
 ];
 

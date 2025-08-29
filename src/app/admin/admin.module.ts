@@ -6,12 +6,14 @@ import { MaterialModule } from '../shared/material.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LayoutComponent } from './layout/layout.component';
 import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    LayoutComponent
   ],
   imports: [
     CommonModule,
