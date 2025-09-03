@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
 
@@ -8,12 +8,16 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component';
 import { AuthGuard } from './auth.guard';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { ProductComponent } from './components/product/product.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     DashboardComponent,
-    LayoutComponent
+    LayoutComponent,
+    SidebarComponent,
+    ProductComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +27,8 @@ import { AuthGuard } from './auth.guard';
     MaterialModule
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    CurrencyPipe
   ]
 })
 export class AdminModule { }
