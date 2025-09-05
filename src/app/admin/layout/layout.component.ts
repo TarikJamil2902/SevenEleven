@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { Subscription, filter } from 'rxjs';
+import { NavbarService } from '../../services/navbar.service';
 
 @Component({
   selector: 'app-layout',
@@ -22,9 +23,16 @@ export class LayoutComponent implements OnInit, OnDestroy {
   private mediaSubscription!: Subscription;
   private routerEventsSubscription!: Subscription;
 
-  constructor(private router: Router, private mediaObserver: MediaObserver) {}
+  constructor(
+    private mediaObserver: MediaObserver,
+    private router: Router,
+    private navbarService: NavbarService
+  ) { }
 
   ngOnInit() {
+    // Hide the main navbar when admin module is active
+    this.navbarService.setVisibility(false);
+    
     this.checkScreenSize();
 
     this.mediaSubscription = this.mediaObserver.asObservable().subscribe(() => {
@@ -63,6 +71,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // Show the main navbar again when leaving admin module
+    this.navbarService.setVisibility(true);
+    
     this.mediaSubscription?.unsubscribe();
     this.routerEventsSubscription?.unsubscribe();
   }

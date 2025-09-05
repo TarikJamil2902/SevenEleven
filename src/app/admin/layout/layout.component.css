@@ -3,41 +3,39 @@ html, body {
   margin: 0;
 }
 
-.sidenav-container {
-  height: 100vh; /* full viewport height */
-}
-
 .sidenav {
   width: 250px;
-  height: 100%; /* full height */
-  position: fixed; /* fixed sidebar */
-  overflow-y: auto; /* scrollable if content exceeds */
-}
-
-.sidenav-header {
-  padding: 16px;
-  text-align: center;
+  height: 100vh;
+  position: fixed;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+  top: 0;
+  left: 0;
 }
 
 .topbar {
-  position: sticky;
+  position: fixed;
+  left: 250px;
   top: 0;
+  right: 0;
+  height: 64px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  background-color: #000000;
+  color: white;
   z-index: 10;
-  width: calc(100% - 250px); /* account for sidebar width */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .content {
-  margin-left: 250px; /* leave space for sidebar */
+  margin-left: 20px;
+  margin-top: 20px;
   padding: 16px;
-  height: 100vh;
-  overflow-y: auto; /* scrollable content */
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #f9f9f9;
   box-sizing: border-box;
-}
-
-.spacer {
-  flex: 1 1 auto;
-}
-
-a.active {
-  background: rgba(0, 0, 0, 0.1);
 }

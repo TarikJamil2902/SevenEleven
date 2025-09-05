@@ -37,6 +37,7 @@ import { ProductComponent } from './components/product/product.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatButtonModule,
     RouterModule,
     AdminRoutingModule,
     MatSidenavModule,
