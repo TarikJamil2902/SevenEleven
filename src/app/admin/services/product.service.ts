@@ -14,6 +14,7 @@ export interface Product {
   material: string;
   features: string;
   description: string;
+  image?: string;  // For storing base64 image data
 }
 
 @Injectable({

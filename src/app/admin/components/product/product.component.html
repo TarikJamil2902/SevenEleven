@@ -53,6 +53,7 @@
     <thead class="table-dark">
       <tr>
         <th>ID</th>
+        <th>Image</th>
         <th>Name</th>
         <th>Model</th>
         <th>Category</th>
@@ -67,8 +68,43 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let p of productList">
+      <tr *ngFor="let p of productList; let i = index">
         <td>{{ p.id }}</td>
+        <td>
+          <div class="position-relative d-inline-block">
+            <img [src]="p.image || 'assets/default.png'" alt="Product Image" class="img-thumbnail" style="max-width: 80px; max-height: 60px;">
+            <div class="image-actions" *ngIf="p.image">
+              <button 
+                type="button" 
+                class="btn btn-sm btn-outline-primary btn-sm"
+                (click)="changeImage($event, i)"
+                title="Change Image">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+              <button 
+                type="button" 
+                class="btn btn-sm btn-outline-danger btn-sm ms-1"
+                (click)="removeImage($event, i)"
+                title="Remove Image">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div class="mt-2" *ngIf="!p.image">
+            <input 
+              type="file" 
+              accept="image/*" 
+              class="d-none" 
+              #fileInput
+              (change)="onImageSelected($event, i)">
+            <button 
+              type="button" 
+              class="btn btn-sm btn-outline-secondary w-100"
+              (click)="fileInput.click(); $event.stopPropagation()">
+              <i class="bi bi-upload"></i> Upload
+            </button>
+          </div>
+        </td>
         <td>{{ p.name }}</td>
         <td>{{ p.model }}</td>
         <td>{{ p.category }}</td>

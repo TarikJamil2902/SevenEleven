@@ -35,7 +35,8 @@ export class ProductComponent implements OnInit {
       power: '',
       material: '',
       features: '',
-      description: ''
+      description: '',
+      image: ''
     };
   }
 
@@ -81,6 +82,37 @@ export class ProductComponent implements OnInit {
     if (this.productForm) {
       this.productForm.resetForm();
     }
+  }
+
+  // Handle image selection and preview
+  public onImageSelected(event: Event, index: number): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        // Update the product's image with the base64 data URL
+        this.productList[index].image = reader.result as string;
+        // Reset the input value to allow selecting the same file again
+        input.value = '';
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  public changeImage(event: Event, index: number): void {
+    event.stopPropagation();
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e: any) => this.onImageSelected(e, index);
+    input.click();
+  }
+
+  public removeImage(event: Event, index: number): void {
+    event.stopPropagation();
+    this.productList[index].image = '';
   }
 
   public edit(product: Product): void {
