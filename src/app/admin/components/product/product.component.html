@@ -1,10 +1,56 @@
+<div class="container mt-4">
+  <h2>Product Management</h2>
 
+  <!-- Add / Edit Form -->
+  <form #productForm="ngForm" (ngSubmit)="saveProduct()" class="mb-4">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <input type="text" class="form-control" placeholder="Name" name="name" [(ngModel)]="newProduct.name" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <input type="text" class="form-control" placeholder="Model" name="model" [(ngModel)]="newProduct.model" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <input type="text" class="form-control" placeholder="Category" name="category" [(ngModel)]="newProduct.category" required>
+      </div>
+    </div>
 
-<div class="container">
-  <div class="content-area">
-    <div class="table-container">
-      <table class="table">
-    <thead class="table-secondary">
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <input type="number" class="form-control" placeholder="Price" name="price" [(ngModel)]="newProduct.price" required>
+      </div>
+      <div class="col-md-3 mb-3">
+        <input type="text" class="form-control" placeholder="Type" name="type" [(ngModel)]="newProduct.type">
+      </div>
+      <div class="col-md-3 mb-3">
+        <input type="text" class="form-control" placeholder="Ratio" name="ratio" [(ngModel)]="newProduct.ratio">
+      </div>
+      <div class="col-md-3 mb-3">
+        <input type="text" class="form-control" placeholder="Power" name="power" [(ngModel)]="newProduct.power">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <input type="text" class="form-control" placeholder="Material" name="material" [(ngModel)]="newProduct.material">
+      </div>
+      <div class="col-md-4 mb-3">
+        <input type="text" class="form-control" placeholder="Features" name="features" [(ngModel)]="newProduct.features">
+      </div>
+      <div class="col-md-5 mb-3">
+        <input type="text" class="form-control" placeholder="Description" name="description" [(ngModel)]="newProduct.description">
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+      {{ editMode ? 'Update Product' : 'Add Product' }}
+    </button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()" *ngIf="editMode">Cancel</button>
+  </form>
+
+  <!-- Product List -->
+  <table class="table table-striped">
+    <thead class="table-dark">
       <tr>
         <th>ID</th>
         <th>Name</th>
@@ -17,93 +63,27 @@
         <th>Material</th>
         <th>Features</th>
         <th>Description</th>
-        <th>Action</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of productList">
-        <td>{{ product.id }}</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.model }}</td>
-        <td>{{ product.category }}</td>
-        <td>{{ product.price | currency }}</td>
-        <td>{{ product.type }}</td>
-        <td>{{ product.ratio }}</td>
-        <td>{{ product.power }}</td>
-        <td>{{ product.material }}</td>
-        <td>{{ product.features }}</td>
-        <td>{{ product.description }}</td>
+      <tr *ngFor="let p of productList">
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.model }}</td>
+        <td>{{ p.category }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.type }}</td>
+        <td>{{ p.ratio }}</td>
+        <td>{{ p.power }}</td>
+        <td>{{ p.material }}</td>
+        <td>{{ p.features }}</td>
+        <td>{{ p.description }}</td>
         <td>
-          <button class="btn btn-outline-success btn-sm me-2" (click)="edit(product.id)">Edit</button>
-          <button class="btn btn-outline-danger btn-sm" (click)="delete(product.id)">Delete</button>
+          <button class="btn btn-sm btn-primary me-2" (click)="edit(p)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="delete(p.id!)">Delete</button>
         </td>
       </tr>
     </tbody>
-      </table>
-    </div>
-
-    <!-- Add New Product Button -->
-    <div class="text-end mt-4">
-      <button mat-raised-button color="primary" (click)="openAddProductModal()">
-        <mat-icon>add</mat-icon> Add New Product
-      </button>
-    </div>
-
-  <!-- Add Product Modal -->
-  <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form #productForm="ngForm" (ngSubmit)="addProduct()">
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newProduct.name" required>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="price" class="form-label">Price</label>
-                <input type="number" class="form-control" id="price" name="price" [(ngModel)]="newProduct.price" step="0.01" required>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="type" class="form-label">Type</label>
-                <input type="text" class="form-control" id="type" name="type" [(ngModel)]="newProduct.type">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="ratio" class="form-label">Ratio</label>
-                <input type="text" class="form-control" id="ratio" name="ratio" [(ngModel)]="newProduct.ratio">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="power" class="form-label">Power</label>
-                <input type="text" class="form-control" id="power" name="power" [(ngModel)]="newProduct.power">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="material" class="form-label">Material</label>
-                <input type="text" class="form-control" id="material" name="material" [(ngModel)]="newProduct.material">
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="features" class="form-label">Features</label>
-              <textarea class="form-control" id="features" name="features" rows="2" [(ngModel)]="newProduct.features"></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="description" class="form-label">Description</label>
-              <textarea class="form-control" id="description" name="description" rows="3" [(ngModel)]="newProduct.description"></textarea>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" [disabled]="!productForm.form.valid">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  </table>
 </div>
