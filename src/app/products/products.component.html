@@ -73,6 +73,112 @@
         <p class="text-muted">There are no products in this category at the moment.</p>
       </div>
     </div>
+    
+    <!-- Pagination Controls -->
+    <div *ngIf="totalPages > 1 || itemsPerPageOptions.length > 1" class="row mt-4">
+      <div class="col-12">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+          <!-- Items per page selector -->
+          <div class="d-flex align-items-center mb-2 mb-md-0">
+            <label for="itemsPerPageSelect" class="me-2 mb-0">Items per page:</label>
+            <select id="itemsPerPageSelect" 
+                    class="form-select form-select-sm" 
+                    style="width: auto;"
+                    [ngModel]="itemsPerPage" 
+                    (ngModelChange)="onItemsPerPageChange($event)">
+              <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
+            </select>
+          </div>
+          
+          <!-- Pagination -->
+          <nav aria-label="Product pagination" class="mb-2 mb-md-0">
+            <ul class="pagination pagination-sm mb-0">
+              <!-- First Page -->
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <button class="page-link" (click)="onPageChange(1)" [disabled]="currentPage === 1" aria-label="First">
+                  <i class="fas fa-angle-double-left"></i>
+                </button>
+              </li>
+              
+              <!-- Previous Page -->
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <button class="page-link" (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1" aria-label="Previous">
+                  <i class="fas fa-angle-left"></i>
+                </button>
+              </li>
+              
+              <!-- Page Numbers -->
+              <li *ngFor="let page of getPageNumbers()" 
+                  class="page-item d-none d-sm-inline-block" 
+                  [class.active]="page === currentPage"
+                  [class.disabled]="page === '...'">
+                <button *ngIf="page !== '...'" 
+                        class="page-link" 
+                        (click)="onPageChange(page)"
+                        [attr.aria-current]="page === currentPage ? 'page' : null">
+                  {{ page }}
+                </button>
+                <span *ngIf="page === '...'" class="page-link">
+                  {{ page }}
+                </span>
+              </li>
+              
+              <!-- Current Page (Mobile) -->
+              <li class="page-item d-sm-none">
+                <span class="page-link bg-light">
+                  {{ currentPage }} / {{ totalPages }}
+                </span>
+              </li>
+              
+              <!-- Next Page -->
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <button class="page-link" (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages" aria-label="Next">
+                  <i class="fas fa-angle-right"></i>
+                </button>
+              </li>
+              
+              <!-- Last Page -->
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <button class="page-link" (click)="onPageChange(totalPages)" [disabled]="currentPage === totalPages" aria-label="Last">
+                  <i class="fas fa-angle-double-right"></i>
+                </button>
+              </li>
+            </ul>
+          </nav>
+          
+          <!-- Items Count and Go to Page -->
+          <div class="d-flex align-items-center gap-2">
+            <div class="text-muted small d-none d-md-block">
+              Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to 
+              {{ Math.min(currentPage * itemsPerPage, totalItems) }} of 
+              {{ totalItems }} items
+            </div>
+            
+            <!-- Go to Page -->
+            <div class="input-group input-group-sm ms-2" style="width: auto;">
+              <button class="btn btn-outline-secondary" type="button" (click)="toggleGoToPage()" [class.active]="showGoToPage">
+                <i class="fas fa-arrow-right-to-bracket"></i>
+              </button>
+              
+              <div *ngIf="showGoToPage" class="input-group" @fadeInOut>
+                <input type="number" 
+                       id="goToPageInput"
+                       class="form-control form-control-sm" 
+                       style="width: 70px;"
+                       [(ngModel)]="goToPageNumber"
+                       [min]="1" 
+                       [max]="totalPages"
+                       (keyup.enter)="goToPage()"
+                       (keyup.esc)="showGoToPage = false">
+                <button class="btn btn-primary btn-sm" type="button" (click)="goToPage()">
+                  Go
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
