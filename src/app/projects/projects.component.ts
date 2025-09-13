@@ -32,7 +32,16 @@ interface Project {
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  projects: Project[] = [
+  selectedProject: Project | null = null;
+  activeImageIndex: number = 0;
+  showProjectModal: boolean = false;
+  activeFilter: FilterCategory = 'all';
+  selectedCategory: FilterCategory = 'all';
+  projects: Project[] = [];
+  
+  constructor() {
+    // Initialize projects data
+    this.projects = [
     {
       id: 1,
       title: 'Smart Factory Automation',
@@ -179,14 +188,10 @@ export class ProjectsComponent implements OnInit {
       description: 'Building a secure, HIPAA-compliant data analytics platform for healthcare providers to analyze patient data, treatment outcomes, and operational efficiency.',
       technologies: ['React', 'Node.js', 'PostgreSQL', 'AWS', 'Docker']
     }
-  ];
+    ];
+  }
 
   categories: FilterCategory[] = ['all', 'ongoing', 'completed'];
-  filteredProjects: Project[] = [];
-  selectedProject: Project | null = null;
-  showProjectModal = false;
-  activeImageIndex = 0;
-  selectedCategory: FilterCategory = 'all';
   
   // Open project modal with selected project
   openProjectModal(project: Project, event?: MouseEvent) {
@@ -199,10 +204,37 @@ export class ProjectsComponent implements OnInit {
     document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
   }
 
-  constructor() {}
-
   ngOnInit(): void {
-    this.filterProjects('all');
+    // Component initialization logic can go here
+  }
+
+  closeProjectModal(): void {
+    this.showProjectModal = false;
+    this.selectedProject = null;
+    document.body.style.overflow = 'auto';
+  }
+
+  nextImage(): void {
+    if (this.selectedProject?.gallery) {
+      this.activeImageIndex = (this.activeImageIndex + 1) % this.selectedProject.gallery.length;
+    }
+  }
+
+  prevImage(): void {
+    if (this.selectedProject?.gallery) {
+      this.activeImageIndex = (this.activeImageIndex - 1 + this.selectedProject.gallery.length) % this.selectedProject.gallery.length;
+    }
+  }
+
+  get filteredProjects(): Project[] {
+    if (this.activeFilter === 'all') {
+      return this.projects;
+    }
+    return this.projects.filter(project => project.category === this.activeFilter);
+  }
+
+  setFilter(filter: FilterCategory): void {
+    this.activeFilter = filter;
   }
 
   getProjectCount(category: FilterCategory): number {
@@ -212,40 +244,17 @@ export class ProjectsComponent implements OnInit {
     return this.projects.filter(project => project.category === category).length;
   }
 
-  toTitleCase(str: string): string {
+  toTitleCase(str: string | undefined): string {
+    if (!str) return '';
     return str.replace(/\w\S*/g, (txt) => {
       return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
     });
   }
 
   filterProjects(category: FilterCategory): void {
-    this.selectedCategory = category;
-    if (category === 'all') {
-      this.filteredProjects = [...this.projects];
-    } else {
-      this.filteredProjects = this.projects.filter(project => project.category === category);
-    }
+    this.activeFilter = category;
   }
 
-  // Close project modal
-  closeProjectModal() {
-    this.showProjectModal = false;
-    document.body.style.overflow = ''; // Re-enable scrolling
-  }
-
-  // Navigate to next image in gallery
-  nextImage() {
-    if (this.selectedProject?.gallery && this.selectedProject.gallery.length > 0) {
-      this.activeImageIndex = (this.activeImageIndex + 1) % this.selectedProject.gallery.length;
-    }
-  }
-
-  // Navigate to previous image in gallery
-  prevImage() {
-    if (this.selectedProject?.gallery && this.selectedProject.gallery.length > 0) {
-      this.activeImageIndex = (this.activeImageIndex - 1 + this.selectedProject.gallery.length) % this.selectedProject.gallery.length;
-    }
-  }
   
   // View project details (alias for openProjectModal for backward compatibility)
   viewProjectDetails(project: Project) {

@@ -1,7 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Base styles */
+html, body { 
+  height: 100%; 
+  margin: 0;
+  padding-top: 67px; /* Height of combined header (35px topbar + 32px navbar) */
+  min-height: 100vh;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark theme */
+body.dark-theme {
+  color: #f0f0f0;
+  background-color: #121212;
+}
+
+/* No scroll class for when mobile menu is open */
+.no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+/* Utility classes */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Bootstrap icon import */
+@import '~bootstrap-icons/font/bootstrap-icons.css';

@@ -27,7 +27,7 @@
           <div class="project-image" (click)="openProjectModal(project, $event)">
             <img [src]="project.imageUrl" [alt]="project.title" class="img-fluid">
             <div class="project-category" [ngClass]="project.category">
-              {{ project.category | titlecase }}
+              {{ toTitleCase(project.category) }}
             </div>
           </div>
           
@@ -80,7 +80,7 @@
         </button>
         
         <div class="gallery-image">
-          <img [src]="selectedProject.gallery[activeImageIndex] || selectedProject.imageUrl" 
+          <img [src]="(selectedProject.gallery && selectedProject.gallery[activeImageIndex]) || selectedProject.imageUrl || 'assets/images/default.jpg'" 
                [alt]="selectedProject.title">
         </div>
         
@@ -103,7 +103,7 @@
             <span class="client">{{ selectedProject.client }}</span>
             <span class="duration">{{ selectedProject.duration }}</span>
             <span class="category" [ngClass]="selectedProject.category">
-              {{ selectedProject.category | titlecase }}
+              {{ toTitleCase(selectedProject.category) }}
             </span>
           </div>
         </div>
@@ -151,7 +151,10 @@
             <p>{{ selectedProject.testimonial.text }}</p>
             <div class="testimonial-author">
               <strong>{{ selectedProject.testimonial.author }}</strong>
-              <span>{{ selectedProject.testimonial.position }}, {{ selectedProject.testimonial.company }}</span>
+              <span *ngIf="selectedProject.testimonial.position || selectedProject.testimonial.company">
+                {{ selectedProject.testimonial.position }}{{ selectedProject.testimonial.position && selectedProject.testimonial.company ? ', ' : '' }}
+                {{ selectedProject.testimonial.company }}
+              </span>
             </div>
           </div>
         </div>

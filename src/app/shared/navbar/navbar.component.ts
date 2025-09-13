@@ -1,90 +1,142 @@
-// navbar.component.ts
-import { Component, HostListener, OnInit, Renderer2, ElementRef } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 type Theme = 'light' | 'dark';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  host: {
+    '[class.dark-theme]': 'currentTheme === "dark"'
+  }
 })
 export class NavbarComponent implements OnInit {
-  menuActive = false;
+  // Scroll detection
   scrolled = false;
-  activeRoute = '';
+
+  // Menu toggle (mobile)
+  menuActive = false;
+
+  // Theme management
   currentTheme: Theme = 'light';
+  private isBrowser: boolean;
+  isMobile = false;
 
   constructor(
-    private router: Router,
     private renderer: Renderer2,
-    private el: ElementRef
-  ) {}
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+    this.checkIfMobile();
+    window.addEventListener('resize', () => this.checkIfMobile());
+  }
 
-  ngOnInit() {
-    // Check for saved theme preference or use system preference
+  ngOnInit(): void {
+    // Initialize theme from localStorage or system preference
+    if (this.isBrowser) {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        this.currentTheme = savedTheme as Theme;
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        this.currentTheme = 'dark';
+      }
+      this.applyTheme(this.currentTheme);
+
+      // Listen for theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+          this.currentTheme = e.matches ? 'dark' : 'light';
+          this.applyTheme(this.currentTheme);
+        }
+      });
+    }
+
+    // Handle scroll event
+    if (this.isBrowser) {
+      window.addEventListener('scroll', this.onWindowScroll);
+    }
+    
+    // Close menu on route change
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.closeMenu();
+    });
+  }
+
+  // Initialize theme
+  private initializeTheme() {
+    if (!this.isBrowser) return;
+
     const savedTheme = localStorage.getItem('theme') as Theme;
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
     this.currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
     this.applyTheme(this.currentTheme);
-
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.activeRoute = event.url.split('?')[0];
-        // Close mobile menu when route changes
-        this.menuActive = false;
-      }
-    });
   }
 
-  toggleTheme() {
-    this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-    this.applyTheme(this.currentTheme);
-    // Save preference
-    localStorage.setItem('theme', this.currentTheme);
-  }
-
+  // Apply theme to the document
   private applyTheme(theme: Theme) {
-    const body = document.body;
     if (theme === 'dark') {
-      body.classList.add('dark-theme');
+      this.renderer.addClass(this.document.body, 'dark-theme');
     } else {
-      body.classList.remove('dark-theme');
+      this.renderer.removeClass(this.document.body, 'dark-theme');
     }
   }
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const navbar = this.el.nativeElement.querySelector('.navbar');
-    if (window.pageYOffset > 50) {
-      this.renderer.addClass(navbar, 'scrolled');
-      this.scrolled = true;
-    } else {
-      this.renderer.removeClass(navbar, 'scrolled');
-      this.scrolled = false;
-    }
-  }
-
+  // Toggle mobile menu
   toggleMenu() {
     this.menuActive = !this.menuActive;
     this.updateBodyScroll();
   }
 
+  // Close mobile menu
   closeMenu() {
     this.menuActive = false;
     this.updateBodyScroll();
   }
 
+  // Update body scroll based on menu state
   private updateBodyScroll() {
     if (this.menuActive) {
-      this.renderer.addClass(document.body, 'no-scroll');
+      this.renderer.addClass(this.document.body, 'no-scroll');
     } else {
-      this.renderer.removeClass(document.body, 'no-scroll');
+      this.renderer.removeClass(this.document.body, 'no-scroll');
     }
   }
 
+  // Check if route is active
   isActive(route: string): boolean {
-    return this.activeRoute === route;
+    return this.router.url === route;
+  }
+
+  // Toggle between light and dark theme
+  toggleTheme() {
+    this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+    this.applyTheme(this.currentTheme);
+    
+    // Save preference
+    if (this.isBrowser) {
+      localStorage.setItem('theme', this.currentTheme);
+    }
+  }
+
+  // Handle window scroll for navbar effects
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (!this.isBrowser) return;
+    this.scrolled = window.scrollY > 50;
+  }
+
+  // Check if the screen is mobile size
+  private checkIfMobile() {
+    if (this.isBrowser) {
+      this.isMobile = window.innerWidth < 992; // Bootstrap's lg breakpoint
+    }
   }
 }

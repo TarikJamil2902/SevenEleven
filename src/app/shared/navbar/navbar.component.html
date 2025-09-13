@@ -1,37 +1,48 @@
-<nav class="navbar" [class.scrolled]="scrolled">
-  <div class="container">
-    <!-- Left Section: Logo -->
-    <div class="nav-section logo-section">
-      <a routerLink="/" class="logo">
-        <img src="assets/images/sevenlogo.jpg" alt="Seven Eleven Logo">
-      </a>
+<header class="header-container">
+  <!-- Top Bar with Logo and Info -->
+  <div class="topbar">
+    <div class="logo">
+      <img src="assets/images/sevenlogo.jpg" alt="7-Eleven Logo">
     </div>
-
-    <!-- Middle Section: Navigation -->
-    <div class="nav-section nav-links">
-      <ul [class.active]="menuActive">
-        <li><a routerLink="/" [class.active]="isActive('/')" (click)="closeMenu()">Home</a></li>
-        <li><a routerLink="/about" [class.active]="isActive('/about')" (click)="closeMenu()">About</a></li>
-        <li><a routerLink="/services" [class.active]="isActive('/services')" (click)="closeMenu()">Services</a></li>
-        <li><a routerLink="/projects" [class.active]="isActive('/projects')" (click)="closeMenu()">Projects</a></li>
-        <li><a routerLink="/products" [class.active]="isActive('/products')" (click)="closeMenu()">Products</a></li>
-        <li><a routerLink="/gallery" [class.active]="isActive('/gallery')" (click)="closeMenu()">Gallery</a></li>
-      </ul>
-    </div>
-
-    <!-- Right Section: Theme Toggle and Contact -->
-    <div class="nav-section nav-actions">
-      <button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="currentTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'">
-        <i [class]="currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun'"></i>
-      </button>
-      <a routerLink="/contact" class="contact-button" [class.active]="isActive('/contact')" (click)="closeMenu()">
-        Contact Us
-      </a>
-      <div class="menu-toggle" (click)="toggleMenu()" [class.active]="menuActive" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
+    <div class="info">
+      <h1>7-Eleven Engineering & Technical Service</h1>
+      <div class="contact-info">
+        <span><i class="bi bi-geo-alt"></i> Plot–52, Road–11, Block–C, Banani, Dhaka-1212</span><br>
+        <span><i class="bi bi-envelope"></i> 7eleven.ets@gmail.com</span><br>
+        <span><i class="bi bi-telephone"></i> +8801910930410</span>
       </div>
     </div>
   </div>
-</nav>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand main-navbar">
+    <div class="container">
+      <button class="navbar-toggler" type="button" (click)="toggleMenu()" [attr.aria-expanded]="menuActive" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" [class.show]="menuActive">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/services" routerLinkActive="active">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/projects" routerLinkActive="active">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/gallery" routerLinkActive="active">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

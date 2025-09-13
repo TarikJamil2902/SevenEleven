@@ -29,8 +29,7 @@ const routes: Routes = [
   },
 
   
-  // Lazy load admin routes
-  
+ 
   // ✅ Wildcard -> home
   { path: '**', redirectTo: '' }
 ];

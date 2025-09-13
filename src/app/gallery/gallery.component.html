@@ -1,6 +1,42 @@
-<div class="gallery">
+<div class="gallery py-5">
   <div class="container">
-    <h2>Gallery</h2>
-    <!-- Gallery content will go here -->
+    <!-- Certifications Section -->
+    <div class="gallery-section mb-5">
+      <h3 class="section-title mb-4">Our Certifications</h3>
+      <div class="row g-4">
+        <div class="col-md-4" *ngFor="let img of [1,2,3,4,5,6]">
+          <div class="gallery-card">
+            <img [src]="'assets/images/' + ['project1.jpg', 'project2.jpg', 'project3.avif', 'smart-factory.jpg', 'industrial-robotics.jpg', 'renewable-energy.jpg'][img-1]" alt="Certification " + img class="img-fluid">
+            <div class="gallery-caption">Certification {{img}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Partners Section -->
+    <div class="gallery-section mb-5">
+      <h3 class="section-title mb-4">Our Partners</h3>
+      <div class="row g-4">
+        <div class="col-md-4" *ngFor="let img of [1,2,3,4,5,6]">
+          <div class="gallery-card">
+            <img [src]="'assets/images/' + ['blsi.webp', 'innovation.webp', 'support.avif', 'quality.jpg', 'experience.avif', 'values.webp'][img-1]" alt="Partner " + img class="img-fluid">
+            <div class="gallery-caption">Partner {{img}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="gallery-section">
+      <h3 class="section-title mb-4">Our Projects</h3>
+      <div class="row g-4">
+        <div class="col-md-4" *ngFor="let img of [1,2,3,4,5,6]">
+          <div class="gallery-card">
+            <img [src]="'assets/images/' + ['smart-city.jpg', 'solar-farm.jpg', 'energy-management.jpg', 'iot-network.jpg', 'controller.jpg', 'motor.jpg'][img-1]" alt="Project " + img class="img-fluid">
+            <div class="gallery-caption">Project {{img}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
