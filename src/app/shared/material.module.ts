@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { ResponsiveImageComponent } from './components/responsive-image/responsive-image.component';
 
 const materialModules = [
   MatMenuModule,
@@ -23,7 +24,9 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ResponsiveImageComponent
+  ],
   imports: [
     CommonModule,
     ...materialModules

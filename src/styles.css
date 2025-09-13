@@ -140,3 +140,27 @@ a:hover::after {
 
 /* Bootstrap icon import */
 @import '~bootstrap-icons/font/bootstrap-icons.css';
+
+@media (max-width: 992px) {
+  .core-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .core-text {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .core-text h2,
+  .core-text h3 {
+    text-align: center;
+  }
+
+  .core-image {
+    margin-top: 1.5rem;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
