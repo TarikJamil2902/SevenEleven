@@ -1,26 +1,35 @@
 body {
-  margin:0;
-  font-family: 'Arial', sans-serif;
-  background:#f5f7fa;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: var(--primary-color);
+  color: white;
+  line-height: 1.6;
 }
 
 .about-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .section {
   margin-bottom: 4rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .content-box {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   margin-bottom: 2rem;
-  transition: transform 0.3s;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .content-box:hover {
@@ -30,20 +39,75 @@ body {
 .banner-box {
   background-size: cover;
   background-position: center;
-  color:white;
+  color: white;
   text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  padding: 80px 20px;
+  margin-bottom: 2rem;
+  background-blend-mode: overlay;
+  background-color: rgba(14, 28, 43, 0.8);
+}
+
+.banner-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(14, 28, 43, 0.9) 0%, rgba(26, 45, 62, 0.9) 100%);
+  z-index: 1;
+}
+
+.banner-box > * {
+  position: relative;
+  z-index: 2;
 }
 
 h1 {
   text-align: center;
-  color: #2c3e50;
+  color: white;
   margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: var(--secondary-color);
 }
 
 h2 {
-  color: #3498db;
+  color: var(--secondary-color);
   margin-bottom: 1.5rem;
   text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: var(--secondary-color);
 }
 
 /* Core Sections */

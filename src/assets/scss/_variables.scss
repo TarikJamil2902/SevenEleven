@@ -1,0 +1,22 @@
+// Color Scheme
+$primary-color: #0e1c2b;      // Dark blue (navbar/footer background)
+$secondary-color: #f26522;    // Orange (accent color)
+$text-light: #ffffff;         // White text
+$text-muted: #e0e0e0;         // Light gray text
+$background-light: #f8f9fa;   // Light background
+$background-dark: #0a141f;    // Slightly darker blue (footer bottom)
+
+// Button styles
+$btn-primary-bg: $secondary-color;
+$btn-primary-color: $text-light;
+$btn-hover-bg: darken($secondary-color, 10%);
+
+// Card styles
+$card-bg: $text-light;
+$card-text: $primary-color;
+$card-border: rgba(0, 0, 0, 0.125);
+
+// Form controls
+$input-border: #ced4da;
+$input-focus-border: $secondary-color;
+$input-focus-box-shadow: 0 0 0 0.25rem rgba(242, 101, 34, 0.25);
