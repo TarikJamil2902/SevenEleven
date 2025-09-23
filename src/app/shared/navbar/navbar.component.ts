@@ -13,20 +13,17 @@ type Theme = 'light' | 'dark';
     '[class.dark-theme]': 'currentTheme === "dark"'
   }
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit {
   // Scroll detection
   scrolled = false;
-  
+
   // Menu toggle (mobile)
-  isMenuCollapsed = true;
-  
+  menuActive = false;
+
   // Theme management
   currentTheme: Theme = 'light';
   private isBrowser: boolean;
   isMobile = false;
-  private scrollListener: (() => void) | null = null;
-  private resizeListener: (() => void) | null = null;
-  private themeChangeListener: ((event: MediaQueryListEvent) => void) | null = null;
 
   constructor(
     private renderer: Renderer2,
@@ -35,53 +32,36 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+    this.checkIfMobile();
+    window.addEventListener('resize', () => this.checkIfMobile());
   }
 
   ngOnInit(): void {
+    // Initialize theme from localStorage or system preference
     if (this.isBrowser) {
-      this.initializeTheme();
-      this.setupEventListeners();
-      this.setupRouteChangeListener();
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        this.currentTheme = savedTheme as Theme;
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        this.currentTheme = 'dark';
+      }
+      this.applyTheme(this.currentTheme);
+
+      // Listen for theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+          this.currentTheme = e.matches ? 'dark' : 'light';
+          this.applyTheme(this.currentTheme);
+        }
+      });
     }
-  }
 
-  private initializeTheme(): void {
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Handle scroll event
+    if (this.isBrowser) {
+      window.addEventListener('scroll', this.onWindowScroll);
+    }
     
-    this.currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-    this.applyTheme(this.currentTheme);
-  }
-
-  private setupEventListeners(): void {
-    // Theme change listener
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    this.themeChangeListener = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem('theme')) {
-        this.currentTheme = e.matches ? 'dark' : 'light';
-        this.applyTheme(this.currentTheme);
-      }
-    };
-    mediaQuery.addEventListener('change', this.themeChangeListener);
-
-    // Window resize listener
-    this.resizeListener = () => this.checkIfMobile();
-    window.addEventListener('resize', this.resizeListener);
-    this.checkIfMobile();
-
-    // Click outside menu listener
-    this.scrollListener = this.renderer.listen('document', 'click', (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      const menu = document.querySelector('.nav-links');
-      const toggle = document.querySelector('.menu-toggle');
-      
-      if (menu && !menu.contains(target) && toggle && !toggle.contains(target) && !this.isMenuCollapsed) {
-        this.closeMenu();
-      }
-    });
-  }
-
-  private setupRouteChangeListener(): void {
+    // Close menu on route change
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -89,7 +69,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
   }
 
-  private applyTheme(theme: Theme): void {
+  // Initialize theme
+  private initializeTheme() {
+    if (!this.isBrowser) return;
+
+    const savedTheme = localStorage.getItem('theme') as Theme;
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    this.currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    this.applyTheme(this.currentTheme);
+  }
+
+  // Apply theme to the document
+  private applyTheme(theme: Theme) {
     if (theme === 'dark') {
       this.renderer.addClass(this.document.body, 'dark-theme');
     } else {
@@ -97,62 +89,54 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleMenu(): void {
-    this.isMenuCollapsed = !this.isMenuCollapsed;
-    document.body.style.overflow = this.isMenuCollapsed ? '' : 'hidden';
+  // Toggle mobile menu
+  toggleMenu() {
+    this.menuActive = !this.menuActive;
+    this.updateBodyScroll();
   }
-  
-  closeMenu(): void {
-    if (!this.isMenuCollapsed) {
-      this.isMenuCollapsed = true;
-      document.body.style.overflow = '';
+
+  // Close mobile menu
+  closeMenu() {
+    this.menuActive = false;
+    this.updateBodyScroll();
+  }
+
+  // Update body scroll based on menu state
+  private updateBodyScroll() {
+    if (this.menuActive) {
+      this.renderer.addClass(this.document.body, 'no-scroll');
+    } else {
+      this.renderer.removeClass(this.document.body, 'no-scroll');
     }
   }
 
-  private checkIfMobile(): void {
-    if (this.isBrowser) {
-      const wasMobile = this.isMobile;
-      this.isMobile = window.innerWidth < 992; // Bootstrap's lg breakpoint
-      
-      // Close menu when resizing from mobile to desktop
-      if (wasMobile && !this.isMobile) {
-        this.closeMenu();
-      }
-    }
-  }
-  
-  @HostListener('window:scroll')
-  onWindowScroll(): void {
-    if (this.isBrowser) {
-      this.scrolled = window.scrollY > 50;
-    }
-  }
-
-  ngOnDestroy(): void {
-    // Clean up event listeners
-    if (this.scrollListener) {
-      this.scrollListener();
-    }
-    if (this.resizeListener) {
-      window.removeEventListener('resize', this.resizeListener);
-    }
-    if (this.themeChangeListener) {
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', this.themeChangeListener);
-    }
-    document.body.style.overflow = '';
-  }
-
+  // Check if route is active
   isActive(route: string): boolean {
     return this.router.url === route;
   }
 
-  toggleTheme(): void {
+  // Toggle between light and dark theme
+  toggleTheme() {
     this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
     this.applyTheme(this.currentTheme);
     
+    // Save preference
     if (this.isBrowser) {
       localStorage.setItem('theme', this.currentTheme);
     }
   }
 
+  // Handle window scroll for navbar effects
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (!this.isBrowser) return;
+    this.scrolled = window.scrollY > 50;
+  }
+
+  // Check if the screen is mobile size
+  private checkIfMobile() {
+    if (this.isBrowser) {
+      this.isMobile = window.innerWidth < 992; // Bootstrap's lg breakpoint
+    }
+  }
 }

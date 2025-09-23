@@ -4,10 +4,12 @@
     <div class="gallery-section mb-5">
       <h3 class="section-title mb-4">Our Certifications</h3>
       <div class="row g-4">
-        <div class="col-md-4" *ngFor="let img of [1,2,3,4,5,6]">
+        <div class="col-md-4" *ngFor="let img of [1,2,3,4,5,6]; let i = index">
           <div class="gallery-card">
-            <img [src]="'assets/images/' + ['project1.jpg', 'project2.jpg', 'project3.avif', 'smart-factory.jpg', 'industrial-robotics.jpg', 'renewable-energy.jpg'][img-1]" alt="Certification " + img class="img-fluid">
-            <div class="gallery-caption">Certification {{img}}</div>
+            <img [src]="'assets/images/' + ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg'][i]" 
+                 [alt]="'Certification ' + (i + 1)" 
+                 class="img-fluid">
+            <div class="gallery-caption">Certification {{i + 1}}</div>
           </div>
         </div>
       </div>
@@ -17,10 +19,12 @@
     <div class="gallery-section mb-5">
       <h3 class="section-title mb-4">Our Partners</h3>
       <div class="row g-4">
-        <div class="col-md-4" *ngFor="let img of [1,2,3,4,5,6]">
+        <div class="col-md-4" *ngFor="let partner of ['blsi.webp', 'innovation.webp', 'quality.jpg', 'values.webp', 'service1.webp', 'service2.webp']; let i = index">
           <div class="gallery-card">
-            <img [src]="'assets/images/' + ['blsi.webp', 'innovation.webp', 'support.avif', 'quality.jpg', 'experience.avif', 'values.webp'][img-1]" alt="Partner " + img class="img-fluid">
-            <div class="gallery-caption">Partner {{img}}</div>
+            <img [src]="'assets/images/' + partner" 
+                 [alt]="'Partner ' + (i + 1)" 
+                 class="img-fluid">
+            <div class="gallery-caption">Partner {{i + 1}}</div>
           </div>
         </div>
       </div>
@@ -30,10 +34,13 @@
     <div class="gallery-section">
       <h3 class="section-title mb-4">Our Projects</h3>
       <div class="row g-4">
-        <div class="col-md-4" *ngFor="let img of [1,2,3,4,5,6]">
+        <div class="col-md-4" *ngFor="let project of ['smart-city.jpg', 'solar-farm.jpg', 'energy-management.jpg', 'iot-network.jpg', 'controller.jpg', 'motor.jpg']; let i = index">
           <div class="gallery-card">
-            <img [src]="'assets/images/' + ['smart-city.jpg', 'solar-farm.jpg', 'energy-management.jpg', 'iot-network.jpg', 'controller.jpg', 'motor.jpg'][img-1]" alt="Project " + img class="img-fluid">
-            <div class="gallery-caption">Project {{img}}</div>
+            <img [src]="'assets/images/' + project" 
+                 [alt]="'Project ' + (i + 1)" 
+                 class="img-fluid"
+                 (error)="handleImageError($event)">
+            <div class="gallery-caption">{{ getProjectName(project) }}</div>
           </div>
         </div>
       </div>
