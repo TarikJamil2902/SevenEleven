@@ -9,7 +9,9 @@ body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
   height: 100vh;
   max-height: 1000px;
   overflow: hidden;
-  margin-top: -80px; /* Adjust based on your header height */
+  margin-top: 0; /* let global body padding control offset */
+  padding: 0; /* override generic section padding */
+  background: transparent; /* avoid dark background band */
 }
 
 .carousel {
@@ -219,6 +221,8 @@ body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
 
 /* Responsive Design */
 @media (max-width: 992px) {
+  /* Shift image crop up so the portion under the divider is brighter */
+  .slide-content img { object-position: center 20%; }
   .hero-overlay h1 {
     font-size: 2.8rem;
   }
@@ -229,6 +233,8 @@ body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
 }
 
 @media (max-width: 768px) {
+  /* Slightly more upward crop on smaller screens */
+  .slide-content img { object-position: center 25%; }
   .hero-overlay h1 {
     font-size: 2.2rem;
   }

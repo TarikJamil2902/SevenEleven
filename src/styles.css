@@ -16,7 +16,6 @@
 html, body { 
   height: 100%; 
   margin: 0;
-  padding-top: 67px; /* Height of combined header (35px topbar + 32px navbar) */
   min-height: 100vh;
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -28,6 +27,7 @@ body {
   color: #333;
   background-color: #fff;
   transition: background-color 0.3s ease, color 0.3s ease;
+  padding-top: 67px; /* Default for large screens: combined header (topbar + navbar) */
 }
 
 /* Dark theme */
@@ -163,4 +163,127 @@ a:hover::after {
     margin-left: auto;
     margin-right: auto;
   }
+}
+/* Topbar gradient background pseudo-element */
+.topbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #ffffff 35%, #e9511a 35%, #0e1c2b 35%);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+/* Responsive gradient adjustment */
+@media (max-width: 991.98px) {
+  /* On medium and smaller screens, only the topbar is shown, so remove navbar space */
+  html { padding-top: 0 !important; }
+  body { padding-top: 70px; /* match Topbar height */ }
+  /* Remove any top margin from the first content element after the navbar */
+  app-navbar + * { margin-top: 0 !important; padding-top: 0 !important; }
+  app-navbar + router-outlet + * { margin-top: 0 !important; padding-top: 0 !important; }
+  router-outlet + * { margin-top: 0 !important; padding-top: 0 !important; }
+  app-root > *:not(app-navbar):first-child { margin-top: 0 !important; padding-top: 0 !important; }
+  body > main:first-of-type,
+  body > section:first-of-type,
+  body > .container:first-of-type { margin-top: 0 !important; padding-top: 0 !important; }
+  .topbar::before {
+    background: linear-gradient(135deg, #ffffff 30%, #e9511a 30%, #0e1c2b 30%);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .topbar::before {
+    background: #0e1c2b;
+  }
+}
+
+/* Responsive Topbar adjustments */
+@media (max-width: 1199px) {
+  .info h1 { font-size: 15px; }
+  .contact-info { font-size: 12px; }
+  .logo img { height: 90px; }
+}
+
+@media (max-width: 991.98px) {
+  .topbar { padding: 5px 15px; }
+  .info h1 { font-size: 14px; line-height: 1.1; }
+  .contact-info { font-size: 11px; }
+  .logo img { height: 80px; }
+}
+
+@media (max-width: 768px) {
+  /* Leave layout control to navbar.component.css; keep only minimal tweaks if needed */
+  .topbar { padding: 6px 12px; }
+}
+
+/* Desktop overrides */
+@media (min-width: 992px) {
+  .navbar-collapse {
+    max-height: none;
+    opacity: 1;
+    visibility: visible;
+    display: flex !important;
+    overflow: visible !important;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #f26522;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+  
+  .nav-link:hover::after,
+  .nav-link.active::after { width: calc(100% - 2rem); }
+}
+
+/* Mobile logo & info tweaks */
+@media (max-width: 767.98px) {
+  .logo { position: relative; left: 0; top: 0; transform: none; margin-right: 15px; }
+  .logo img { height: 50px; margin: 0; transition: transform 0.3s ease; }
+  .logo:hover img { transform: scale(1.05); }
+  .info { flex: 1; padding: 0; margin: 0; position: relative; text-align: left; }
+  .info h1 { font-size: 14px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; }
+  .contact-info { display: none; }
+}
+
+/* Small tweaks for navbar toggler & collapse transitions */
+.navbar-toggler {
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  background: transparent;
+  color: white;
+  border-radius: 4px;
+  transition: all 0.2s;
+  z-index: 1032;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.navbar-toggler:focus { outline: none; }
+
+.navbar-toggler .navbar-toggler-icon {
+  width: 1.5em;
+  height: 1.5em;
+  transition: transform 0.3s ease;
+}
+
+.navbar-toggler[aria-expanded='true'] .navbar-toggler-icon {
+  transform: rotate(180deg);
 }

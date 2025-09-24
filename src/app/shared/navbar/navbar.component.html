@@ -1,47 +1,89 @@
 <header class="header-container">
-  <!-- Top Bar with Logo and Info -->
-  <div class="topbar">
-    <div class="logo">
+  <!-- Top Bar with Logo and Menu Toggle -->
+  <div class="topbar d-flex align-items-center justify-content-between">
+
+    <!-- Logo -->
+    <div class="logo d-flex align-items-center">
       <img src="assets/images/sevenlogo.jpg" alt="7-Eleven Logo">
     </div>
-    <div class="info">
+
+    <!-- Company Info -->
+    <div class="info flex-grow-1 px-3">
       <h1>7-Eleven Engineering & Technical Service</h1>
-      <div class="contact-info">
+      <div class="contact-info d-none d-lg-block">
         <span><i class="bi bi-geo-alt"></i> Plot–52, Road–11, Block–C, Banani, Dhaka-1212</span><br>
         <span><i class="bi bi-envelope"></i> 7eleven.ets@gmail.com</span><br>
         <span><i class="bi bi-telephone"></i> +8801910930410</span>
       </div>
     </div>
+
+    <!-- Mobile Menu Toggle Button -->
+    <button
+      class="navbar-toggler d-lg-none ms-auto"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuActive"
+      aria-controls="navbarContent"
+      [attr.aria-label]="menuActive ? 'Close menu' : 'Open menu'"
+      #navbarToggler>
+      <i class="fas" [ngClass]="menuActive ? 'fa-times' : 'fa-bars'"></i>
+    </button>
   </div>
 
   <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand main-navbar">
+  <nav class="navbar navbar-expand-lg main-navbar" aria-label="Main navigation">
     <div class="container">
-      <button class="navbar-toggler" type="button" (click)="toggleMenu()" [attr.aria-expanded]="menuActive" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <div
+        id="navbarContent"
+        class="collapse navbar-collapse"
+        [class.show]="menuActive"
+        [attr.aria-hidden]="!menuActive">
 
-      <div class="collapse navbar-collapse" [class.show]="menuActive">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+            <a class="nav-link"
+               routerLink="/"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact:true}"
+               (click)="isMobile && closeMenu()">
+              <i class="fas fa-home me-1"></i>
+              <span>Home</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+            <a class="nav-link" routerLink="/about" routerLinkActive="active" (click)="isMobile && closeMenu()">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/services" routerLinkActive="active">Services</a>
+            <a class="nav-link" routerLink="/services" routerLinkActive="active" (click)="isMobile && closeMenu()">Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/projects" routerLinkActive="active">Projects</a>
+            <a class="nav-link" routerLink="/projects" routerLinkActive="active" (click)="isMobile && closeMenu()">Projects</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/gallery" routerLinkActive="active">Gallery</a>
+            <a class="nav-link" routerLink="/gallery" routerLinkActive="active" (click)="isMobile && closeMenu()">
+              <i class="fas fa-images me-1"></i>
+              <span>Gallery</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active" (click)="isMobile && closeMenu()">
+              <i class="fas fa-envelope me-1"></i>
+              <span>Contact</span>
+            </a>
+          </li>
+
+          <!-- Mobile Theme Switch -->
+          <li class="nav-item d-lg-none mt-auto">
+            <div class="d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted">Theme:</span>
+              <button class="btn btn-sm btn-outline-secondary" (click)="toggleTheme()">
+                <i [class]="currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun'"></i>
+                <span class="ms-1">{{ currentTheme === 'light' ? 'Dark' : 'Light' }} Mode</span>
+              </button>
+            </div>
           </li>
         </ul>
+
       </div>
     </div>
   </nav>
